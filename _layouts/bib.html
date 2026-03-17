@@ -1,0 +1,27 @@
+---
+---
+<div class="publication">
+  <div class="pub-row">
+    <div class="pub-content">
+      <span class="pub-title">{{ entry.title }}</span>
+      <span class="pub-authors">{{ entry.author }}</span>
+      <span class="pub-venue">
+        {% if entry.journal %}{{ entry.journal }}{% endif %}
+        {% if entry.booktitle %}{{ entry.booktitle }}{% endif %}
+        {% if entry.year %}, {{ entry.year }}{% endif %}
+      </span>
+
+      <div class="pub-links">
+        {% if entry.url %}
+        <a href="{{ entry.url }}" target="_blank"><i class="fas fa-link"></i> Link</a>
+        {% endif %}
+        {% if entry.pdf %}
+        <a href="{{ entry.pdf }}" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+        {% endif %}
+        {% if entry.arxiv %}
+        <a href="https://arxiv.org/abs/{{ entry.arxiv }}" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

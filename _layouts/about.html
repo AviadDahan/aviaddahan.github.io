@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+<article class="about">
+  <div class="profile">
+    <div class="profile-image">
+      {% if page.profile.image %}
+      <img src="{{ page.profile.image | prepend: '/assets/img/' | relative_url }}" alt="{{ site.first_name }} {{ site.last_name }}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="profile-placeholder" style="display:none;">{{ site.first_name | slice: 0 }}{{ site.last_name | slice: 0 }}</div>
+      {% else %}
+      <div class="profile-placeholder">{{ site.first_name | slice: 0 }}{{ site.last_name | slice: 0 }}</div>
+      {% endif %}
+    </div>
+
+    <div class="profile-info">
+      <h1 class="profile-name">{{ site.first_name }} {{ site.last_name }}</h1>
+
+      {% if page.profile.position %}
+      <p class="profile-position">{{ page.profile.position }}</p>
+      {% endif %}
+
+      {% if page.profile.affiliation %}
+      <p class="profile-affiliation">{{ page.profile.affiliation }}</p>
+      {% endif %}
+
+      <div class="social-links">
+        {% if site.email %}
+        <a href="mailto:{{ site.email }}" title="Email"><i class="fas fa-envelope"></i></a>
+        {% endif %}
+        {% if site.scholar_userid %}
+        <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+        {% endif %}
+        {% if site.linkedin_username %}
+        <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        {% endif %}
+        {% if site.github_username %}
+        <a href="https://github.com/{{ site.github_username }}" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="about-content">
+    {{ content }}
+  </div>
+</article>

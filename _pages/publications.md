@@ -1,0 +1,76 @@
+---
+layout: page
+title: Publications
+permalink: /publications/
+---
+
+<div class="publications-list">
+
+<div class="publication">
+  <div class="pub-thumbnail">
+    <img src="/assets/img/publications/idlora.png" alt="ID-LoRA">
+  </div>
+  <div class="pub-content">
+    <span class="pub-title">ID-LoRA: Identity-Driven Audio-Video Personalization with In-Context LoRA</span>
+    <span class="pub-authors"><strong>Aviad Dahan</strong>*, Moran Yanuka*, Noa Kraicer, Lior Wolf, Raja Giryes</span>
+    <span class="pub-venue">arXiv preprint, 2026</span>
+    <div class="pub-links">
+      <a href="https://id-lora.github.io/" target="_blank"><i class="fas fa-globe"></i> Project</a>
+      <a href="https://arxiv.org/abs/2603.10256" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
+      <a href="https://github.com/id-lora/id-lora" target="_blank"><i class="fab fa-github"></i> Code</a>
+    </div>
+  </div>
+</div>
+
+<div class="publication">
+  <div class="pub-thumbnail">
+    <img src="/assets/img/publications/liteattention.png" alt="LiteAttention">
+  </div>
+  <div class="pub-content">
+    <span class="pub-title">LiteAttention: A Temporal Sparse Attention for Diffusion Transformers</span>
+    <span class="pub-authors">Dor Shmilovich, Tony Wu, <strong>Aviad Dahan</strong>, Yuval Domb</span>
+    <span class="pub-venue">arXiv preprint, 2025</span>
+    <div class="pub-links">
+      <a href="https://moonmath-ai.github.io/LiteAttention/" target="_blank"><i class="fas fa-globe"></i> Project</a>
+      <a href="https://arxiv.org/abs/2511.11062" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
+      <a href="https://github.com/moonmath-ai/LiteAttention" target="_blank"><i class="fab fa-github"></i> Code</a>
+    </div>
+  </div>
+</div>
+
+<div class="publication">
+  <div class="pub-thumbnail">
+    <img src="/assets/img/publications/vps.png" alt="Video Polyp Segmentation">
+  </div>
+  <div class="pub-content">
+    <span class="pub-title">Video Polyp Segmentation using Implicit Networks</span>
+    <span class="pub-authors"><strong>Aviad Dahan</strong>, Tal Shaharabany, Raja Giryes, Lior Wolf</span>
+    <span class="pub-venue">Medical Imaging with Deep Learning (MIDL), 2024</span>
+    <div class="pub-links">
+      <a href="https://proceedings.mlr.press/v250/dahan24c.html" target="_blank"><i class="fas fa-link"></i> Paper</a>
+      <a href="https://github.com/AviadDahan/VPS-implicit" target="_blank"><i class="fab fa-github"></i> Code</a>
+    </div>
+  </div>
+</div>
+
+<div class="publication">
+  <div class="pub-thumbnail">
+    <img src="/assets/img/publications/autosam.png" alt="AutoSAM">
+  </div>
+  <div class="pub-content">
+    <span class="pub-title">AutoSAM: Adapting SAM to Medical Images by Overloading the Prompt Encoder</span>
+    <span class="pub-authors">Tal Shaharabany, <strong>Aviad Dahan</strong>, Raja Giryes, Lior Wolf</span>
+    <span class="pub-venue">British Machine Vision Conference (BMVC), 2023</span>
+    <div class="pub-links">
+      <a href="https://arxiv.org/abs/2306.06370" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
+      <a href="https://github.com/talshaharabany/AutoSAM" target="_blank"><i class="fab fa-github"></i> Code</a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<p style="margin-top: 2rem; color: var(--text-light);">
+  <i class="ai ai-google-scholar"></i>
+  See my <a href="https://scholar.google.com/citations?user=6OxJ6hIAAAAJ" target="_blank">Google Scholar</a> profile for citation metrics and full publication list.
+</p>

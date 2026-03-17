@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aviad Dahan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <div class="container">
+        <a class="site-title" href="#">Aviad Dahan</a>
+        <ul class="nav-links">
+          <li><a href="#" class="active">About</a></li>
+          <li><a href="#publications">Publications</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+      <article class="about">
+        <div class="profile">
+          <div class="profile-image">
+            <img src="assets/img/profile.jpg" alt="Aviad Dahan">
+          </div>
+          <div class="profile-info">
+            <h1 class="profile-name">Aviad Dahan</h1>
+            <p class="profile-position">PhD Student in Electrical Engineering</p>
+            <p class="profile-affiliation">Tel Aviv University</p>
+            <div class="social-links">
+              <a href="mailto:aviaddahan@mail.tau.ac.il" title="Email"><i class="fas fa-envelope"></i></a>
+              <a href="https://scholar.google.com/citations?user=6OxJ6hIAAAAJ" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+              <a href="https://www.linkedin.com/in/aviadd" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+              <a href="https://github.com/aviaddahan" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-content">
+          <p>I am a PhD student in Electrical Engineering at Tel Aviv University, working under the supervision of <a href="https://www.giryes.sites.tau.ac.il/">Prof. Raja Giryes</a> and <a href="https://www.cs.tau.ac.il/~wolf/">Prof. Lior Wolf</a>.</p>
+
+          <p>My research focuses on <strong>deep learning for computer vision</strong>, with particular interests in:</p>
+          <ul>
+            <li><strong>Image Editing</strong> - Generative models for image manipulation</li>
+            <li><strong>Video Editing</strong> - Temporal consistency in video generation</li>
+            <li><strong>Medical Image Segmentation</strong> - Adapting foundation models for medical imaging</li>
+            <li><strong>Speech & Audio</strong> - Audio-visual generation and personalization</li>
+          </ul>
+
+          <h2>Education</h2>
+          <ul>
+            <li><strong>PhD in Electrical Engineering</strong>, Tel Aviv University (2024 - Present)</li>
+            <li><strong>M.Sc. in Electrical Engineering</strong> (with honors), Tel Aviv University (2022 - 2024)</li>
+            <li><strong>M.Eng. in System Engineering</strong>, Technion (2017 - 2019)</li>
+            <li><strong>B.Sc. in Electrical Engineering</strong>, Technion (2009 - 2013)</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Publications Section -->
+      <section id="publications" style="margin-top: 4rem; padding-top: 2rem; border-top: 2px solid var(--border-color);">
+        <h2 style="font-size: 1.75rem; margin-bottom: 1.5rem; color: var(--primary-color);">Publications</h2>
+        <div class="publications-list">
+          <div class="publication">
+            <div class="pub-thumbnail">
+              <img src="assets/img/publications/idlora.png" alt="ID-LoRA">
+            </div>
+            <div class="pub-content">
+              <span class="pub-title">ID-LoRA: Identity-Driven Audio-Video Personalization with In-Context LoRA</span>
+              <span class="pub-authors"><strong>Aviad Dahan</strong>*, Moran Yanuka*, Noa Kraicer, Lior Wolf, Raja Giryes</span>
+              <span class="pub-venue">arXiv preprint, 2026</span>
+              <div class="pub-links">
+                <a href="https://id-lora.github.io/" target="_blank"><i class="fas fa-globe"></i> Project</a>
+                <a href="https://arxiv.org/abs/2603.10256" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
+                <a href="https://github.com/id-lora/id-lora" target="_blank"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication">
+            <div class="pub-thumbnail">
+              <img src="assets/img/publications/liteattention.png" alt="LiteAttention">
+            </div>
+            <div class="pub-content">
+              <span class="pub-title">LiteAttention: A Temporal Sparse Attention for Diffusion Transformers</span>
+              <span class="pub-authors">Dor Shmilovich, Tony Wu, <strong>Aviad Dahan</strong>, Yuval Domb</span>
+              <span class="pub-venue">arXiv preprint, 2025</span>
+              <div class="pub-links">
+                <a href="https://moonmath-ai.github.io/LiteAttention/" target="_blank"><i class="fas fa-globe"></i> Project</a>
+                <a href="https://arxiv.org/abs/2511.11062" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
+                <a href="https://github.com/moonmath-ai/LiteAttention" target="_blank"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication">
+            <div class="pub-thumbnail">
+              <img src="assets/img/publications/vps.png" alt="Video Polyp Segmentation">
+            </div>
+            <div class="pub-content">
+              <span class="pub-title">Video Polyp Segmentation using Implicit Networks</span>
+              <span class="pub-authors"><strong>Aviad Dahan</strong>, Tal Shaharabany, Raja Giryes, Lior Wolf</span>
+              <span class="pub-venue">Medical Imaging with Deep Learning (MIDL), 2024</span>
+              <div class="pub-links">
+                <a href="https://proceedings.mlr.press/v250/dahan24c.html" target="_blank"><i class="fas fa-link"></i> Paper</a>
+                <a href="https://github.com/AviadDahan/VPS-implicit" target="_blank"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication">
+            <div class="pub-thumbnail">
+              <img src="assets/img/publications/autosam.png" alt="AutoSAM">
+            </div>
+            <div class="pub-content">
+              <span class="pub-title">AutoSAM: Adapting SAM to Medical Images by Overloading the Prompt Encoder</span>
+              <span class="pub-authors">Tal Shaharabany, <strong>Aviad Dahan</strong>, Raja Giryes, Lior Wolf</span>
+              <span class="pub-venue">British Machine Vision Conference (BMVC), 2023</span>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2306.06370" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
+                <a href="https://github.com/talshaharabany/AutoSAM" target="_blank"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 Aviad Dahan. Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+# Site settings
+title: Aviad Dahan
+first_name: Aviad
+last_name: Dahan
+email: aviaddahan@mail.tau.ac.il
+description: >-
+  PhD Student in Electrical Engineering at Tel Aviv University.
+  Research in deep learning, computer vision, image and video editing.
+
+keywords: deep learning, computer vision, image editing, video editing, medical image segmentation, generative AI
+
+url: https://aviaddahan.github.io
+baseurl: ""
+
+# Languages
+lang: en
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Includes & Excludes
+include:
+  - "_pages"
+  - "Aviad dahan - CV-2025-latest.pdf"
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Plugins (GitHub Pages compatible)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Social links
+scholar_userid: 6OxJ6hIAAAAJ
+linkedin_username: aviadd
+github_username: aviaddahan
+
+# Open Graph / Twitter cards
+og_image: /assets/img/profile.jpg
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: page
