@@ -13,7 +13,7 @@ permalink: /publications/
   <div class="pub-content">
     <span class="pub-title">ID-LoRA: Identity-Driven Audio-Video Personalization with In-Context LoRA</span>
     <span class="pub-authors"><strong>Aviad Dahan</strong>*, Moran Yanuka*, Noa Kraicer, Lior Wolf, Raja Giryes</span>
-    <span class="pub-venue">arXiv preprint, 2026</span>
+    <span class="pub-venue">European Conference on Computer Vision (ECCV), 2026</span>
     <div class="pub-links">
       <a href="https://id-lora.github.io/" target="_blank"><i class="fas fa-globe"></i> Project</a>
       <a href="https://arxiv.org/abs/2603.10256" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>

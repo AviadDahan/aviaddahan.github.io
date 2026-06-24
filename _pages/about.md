@@ -17,13 +17,6 @@ My research focuses on **deep learning for computer vision**, with particular in
 - **Medical Image Segmentation** - Adapting foundation models for medical imaging
 - **Speech & Audio** - Audio-visual generation and personalization
 
-## Education
-
-- **PhD in Electrical Engineering**, Tel Aviv University (2024 - Present)
-- **M.Sc. in Electrical Engineering** (with honors), Tel Aviv University (2022 - 2024)
-- **M.Eng. in System Engineering**, Technion (2017 - 2019)
-- **B.Sc. in Electrical Engineering**, Technion (2009 - 2013)
-
 ## Publications
 
 <div class="publications-list">
@@ -35,7 +28,7 @@ My research focuses on **deep learning for computer vision**, with particular in
   <div class="pub-content">
     <span class="pub-title">ID-LoRA: Identity-Driven Audio-Video Personalization with In-Context LoRA</span>
     <span class="pub-authors"><strong>Aviad Dahan</strong>*, Moran Yanuka*, Noa Kraicer, Lior Wolf, Raja Giryes</span>
-    <span class="pub-venue">arXiv preprint, 2026</span>
+    <span class="pub-venue">European Conference on Computer Vision (ECCV), 2026</span>
     <div class="pub-links">
       <a href="https://id-lora.github.io/" target="_blank"><i class="fas fa-globe"></i> Project</a>
       <a href="https://arxiv.org/abs/2603.10256" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
