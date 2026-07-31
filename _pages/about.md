@@ -8,11 +8,11 @@ profile:
   affiliation: Tel Aviv University
 ---
 
-I am a PhD student in Electrical Engineering at Tel Aviv University, working under the supervision of [Prof. Raja Giryes](https://www.giryes.sites.tau.ac.il/) and [Prof. Lior Wolf](https://www.cs.tau.ac.il/~wolf/).
+I am a PhD student in Electrical Engineering at Tel Aviv University, advised by [Prof. Raja Giryes](https://www.giryes.sites.tau.ac.il/) and [Prof. Lior Wolf](https://www.cs.tau.ac.il/~wolf/), where I build generative systems for audiovisual creation.
 
-My research focuses on **generative AI**, with a particular emphasis on multimodal audio-video generation and editing.
+I work on **generative AI for multimodal audio-video generation and editing**—models that can preserve identity, steer motion, and reshape visual stories.
 
-My work spans personalized multimodal audio-video generation and editing, generative video models that maintain temporal coherence, and image editing with generative models. I am also interested in adapting foundation models to high-stakes visual domains, including medical image segmentation.
+My research spans personalized audiovisual generation, temporally coherent video models, and image editing. I am also interested in adapting foundation models to high-stakes visual domains, including medical image segmentation.
 
 ## Publications
 
