@@ -15,10 +15,9 @@
   <meta property="og:image" content="{{ site.url }}{{ site.og_image }}">
   <meta property="og:type" content="website">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -35,9 +34,11 @@
   <header class="site-header">
     <nav class="navbar">
       <div class="container">
-        <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+        <a class="site-title" href="{{ '/' | relative_url }}"><span class="site-mark">AD</span>{{ site.title }}</a>
         <ul class="nav-links">
           <li><a href="{{ '/' | relative_url }}" {% if page.permalink == '/' %}class="active"{% endif %}>Home</a></li>
+          <li><a href="{{ '/publications/' | relative_url }}" {% if page.permalink == '/publications/' %}class="active"{% endif %}>Publications</a></li>
+          <li><a href="{{ '/cv/' | relative_url }}" {% if page.permalink == '/cv/' %}class="active"{% endif %}>CV</a></li>
         </ul>
       </div>
     </nav>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aviad Dahan — Option 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#171a16; --paper:#f6f6ef; --line:#d5d6cf; --acid:#c6ff00; --muted:#6d716b; }
+    * { box-sizing:border-box; } body { margin:0; color:var(--ink); background:var(--paper); font:15px/1.65 Manrope,sans-serif; }
+    body::before { content:""; position:fixed; inset:0; z-index:-1; opacity:.22; background-image:radial-gradient(#171a16 .45px,transparent .45px); background-size:7px 7px; }
+    nav, main, footer { max-width:1120px; margin:auto; padding-left:32px; padding-right:32px; } nav { display:flex; justify-content:space-between; align-items:center; padding-top:18px; padding-bottom:18px; border-bottom:1px solid var(--line); font:12px "DM Mono",monospace; }
+    .mark { display:inline-grid; place-items:center; width:32px; height:32px; margin-right:10px; background:var(--ink); color:var(--acid); font-size:10px; } nav a { margin-left:20px; color:inherit; text-decoration:none; }
+    main { padding-top:75px; } .kicker { color:var(--muted); font:11px "DM Mono",monospace; letter-spacing:.09em; text-transform:uppercase; }
+    .hero { display:grid; grid-template-columns:280px 1fr; gap:clamp(32px,8vw,110px); align-items:end; padding-bottom:76px; border-bottom:1px solid var(--ink); }
+    .portrait { display:grid; place-items:center; width:260px; aspect-ratio:1; border-radius:50%; overflow:hidden; background:#d9dad1; font:82px "Instrument Serif",serif; }
+    h1 { margin:0; font:clamp(76px,13vw,155px)/.72 "Instrument Serif",serif; letter-spacing:-.08em; } h1 em { font-weight:400; } .role { margin:35px 0 0; font-weight:700; } .school { margin:0; color:var(--muted); }
+    .intro { max-width:735px; padding:56px 0; font-size:17px; } .intro p:first-child { font:clamp(27px,3vw,40px)/1.14 "Instrument Serif",serif; }
+    h2 { display:flex; gap:18px; align-items:center; margin:35px 0 22px; font:52px "Instrument Serif",serif; letter-spacing:-.04em; } h2::after { content:""; flex:1; height:1px; background:var(--ink); }
+    .work { display:grid; grid-template-columns:160px 1fr; gap:28px; padding:20px 0; border-top:1px solid var(--line); } .year { font:11px "DM Mono",monospace; color:var(--muted); } .title { display:block; font:27px/1.1 "Instrument Serif",serif; } .meta { color:var(--muted); font-size:13px; } .links { margin-top:10px; font:11px "DM Mono",monospace; } .links a { margin-right:10px; color:inherit; text-decoration-color:var(--acid); text-decoration-thickness:2px; }
+    footer { padding-top:42px; padding-bottom:25px; border-top:1px solid var(--line); color:var(--muted); font:10px "DM Mono",monospace; }
+    @media (max-width:650px) { nav,main,footer { padding-left:20px;padding-right:20px; } nav a { margin-left:10px; } .hero { grid-template-columns:1fr; gap:28px; } .portrait { width:170px; } h1 { font-size:90px; } .work { grid-template-columns:1fr; gap:6px; } }
+  </style>
+</head>
+<body>
+  <nav><span><span class="mark">AD</span>Aviad Dahan</span><span><a href="#">Home</a><a href="#">Work</a><a href="#">CV</a></span></nav>
+  <main>
+    <p class="kicker">Computer vision · Generative AI · Tel Aviv</p>
+    <section class="hero"><div class="portrait">AD</div><div><h1>Aviad<br><em>Dahan</em></h1><p class="role">PhD Student in Electrical Engineering</p><p class="school">Tel Aviv University</p></div></section>
+    <section class="intro"><p>I build generative systems that make image, video, and audio editing feel less like a tool—and more like a medium.</p><p>Working with Prof. Raja Giryes and Prof. Lior Wolf on deep learning for visual creation.</p></section>
+    <section><h2>Selected work</h2><article class="work"><span class="year">2026 / ECCV</span><div><span class="title">ID-LoRA: Identity-Driven Audio-Video Personalization</span><span class="meta">Aviad Dahan et al.</span><p class="links"><a href="#">PROJECT</a><a href="#">ARXIV</a><a href="#">CODE</a></p></div></article><article class="work"><span class="year">2026 / IEEE</span><div><span class="title">Consistent Zero-Shot Video Editing with Multimodal Feature Flow</span><span class="meta">Aviad Dahan, Eyal Gomel, Lior Wolf, Raja Giryes</span><p class="links"><a href="#">PAPER</a><a href="#">DOI</a></p></div></article></section>
+  </main>
+  <footer>© 2026 AVIAD DAHAN · OPTION 01 / EDITORIAL SIGNAL</footer>
+</body>
+</html>

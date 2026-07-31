@@ -44,7 +44,7 @@ My research focuses on **deep learning for computer vision**, with particular in
   <div class="pub-content">
     <span class="pub-title">Consistent Zero-Shot Video Editing with Multimodal Feature Flow</span>
     <span class="pub-authors"><strong>Aviad Dahan</strong>, Eyal Gomel, Lior Wolf, Raja Giryes</span>
-    <span class="pub-venue">IEEE Open Journal of Signal Processing, 2026</span>
+    <span class="pub-venue">IEEE Open Journal of Signal Processing, 2026 · Oral at ICIP 2026</span>
     <div class="pub-links">
       <a href="https://ieeexplore.ieee.org/document/11509357" target="_blank"><i class="fas fa-link"></i> Paper</a>
       <a href="https://doi.org/10.1109/ojsp.2026.3691029" target="_blank"><i class="ai ai-doi"></i> DOI</a>

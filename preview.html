@@ -6,7 +6,7 @@
   <title>Aviad Dahan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="assets/css/main.css">
@@ -15,9 +15,11 @@
   <header class="site-header">
     <nav class="navbar">
       <div class="container">
-        <a class="site-title" href="#">Aviad Dahan</a>
+        <a class="site-title" href="#"><span class="site-mark">AD</span>Aviad Dahan</a>
         <ul class="nav-links">
           <li><a href="#" class="active">Home</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="Aviad dahan - CV-2025-latest.pdf">CV</a></li>
         </ul>
       </div>
     </nav>
@@ -26,12 +28,14 @@
   <main class="page-content">
     <div class="container">
       <article class="about">
+        <p class="eyebrow">Computer vision · Generative AI · Tel Aviv</p>
         <div class="profile">
           <div class="profile-image">
-            <img src="assets/img/profile.jpg" alt="Aviad Dahan">
+            <img src="assets/img/profile.jpg" alt="Aviad Dahan" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+            <div class="profile-placeholder" style="display:none;">AD</div>
           </div>
           <div class="profile-info">
-            <h1 class="profile-name">Aviad Dahan</h1>
+            <h1 class="profile-name">Aviad<br><em>Dahan</em></h1>
             <p class="profile-position">PhD Student in Electrical Engineering</p>
             <p class="profile-affiliation">Tel Aviv University</p>
             <div class="social-links">
@@ -59,8 +63,8 @@
       </article>
 
       <!-- Publications Section -->
-      <section id="publications" style="margin-top: 2rem;">
-        <h2 style="font-size: 1.5rem; font-weight: 500; color: var(--primary-color); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-color);">Publications</h2>
+      <section id="publications">
+        <h2>Publications</h2>
         <div class="publications-list">
           <div class="publication">
             <div class="pub-thumbnail">
@@ -85,7 +89,7 @@
             <div class="pub-content">
               <span class="pub-title">Consistent Zero-Shot Video Editing with Multimodal Feature Flow</span>
               <span class="pub-authors"><strong>Aviad Dahan</strong>, Eyal Gomel, Lior Wolf, Raja Giryes</span>
-              <span class="pub-venue">IEEE Open Journal of Signal Processing, 2026</span>
+              <span class="pub-venue">IEEE Open Journal of Signal Processing, 2026 · Oral at ICIP 2026</span>
               <div class="pub-links">
                 <a href="https://ieeexplore.ieee.org/document/11509357" target="_blank"><i class="fas fa-link"></i> Paper</a>
                 <a href="https://doi.org/10.1109/ojsp.2026.3691029" target="_blank"><i class="ai ai-doi"></i> DOI</a>
