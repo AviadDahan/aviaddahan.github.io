@@ -150,9 +150,8 @@ a:hover { color: var(--muted); }
 .companies .company-logos { display: flex; flex-shrink: 0; gap: 1.5rem; padding: .5rem 1.5rem .5rem 0; margin: 0; list-style: none; }
 .companies .company-logos > li { flex: 0 0 148px; width: 148px; padding: 0; border: 0; }
 .companies .company-logos > li::before { display: none; }
-.companies:hover .companies-track { animation-play-state: paused; }
-.companies:focus-within .companies-track { animation: none; }
-.companies:focus-within .companies-viewport { overflow-x: auto; }
+.companies:has(:focus-visible) .companies-track { animation: none; }
+.companies:has(:focus-visible) .companies-viewport { overflow-x: auto; }
 @keyframes companies-scroll { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
   .companies-track { animation: none; }
