@@ -3,17 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{{ page.description | default: site.description }}">
+  {% assign meta_description = page.description | default: site.description | strip_html | normalize_whitespace %}
+  {% capture meta_title %}{% if page.url == '/' %}{{ site.social_title }}{% else %}{{ page.title | default: site.title }} | {{ site.title }}{% endif %}{% endcapture %}
+  <meta name="description" content="{{ meta_description | escape }}">
   <meta name="keywords" content="{{ site.keywords }}">
   <meta name="author" content="{{ site.first_name }} {{ site.last_name }}">
 
-  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <title>{{ meta_title | strip | escape }}</title>
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+  <!-- Browser and home-screen icons -->
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="{{ page.title | default: site.title }}">
-  <meta property="og:description" content="{{ page.description | default: site.description }}">
-  <meta property="og:image" content="{{ site.url }}{{ site.og_image }}">
+  <meta property="og:title" content="{{ meta_title | strip | escape }}">
+  <meta property="og:description" content="{{ meta_description | escape }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:site_name" content="{{ site.title | escape }}">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="{{ site.og_image | absolute_url }}">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ site.og_image_alt | escape }}">
   <meta property="og:type" content="website">
+
+  <!-- X / Twitter large-image cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ meta_title | strip | escape }}">
+  <meta name="twitter:description" content="{{ meta_description | escape }}">
+  <meta name="twitter:image" content="{{ site.og_image | absolute_url }}">
+  <meta name="twitter:image:alt" content="{{ site.og_image_alt | escape }}">
+  {% if site.x_username %}<meta name="twitter:creator" content="@{{ site.x_username | escape }}">{% endif %}
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

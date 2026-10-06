@@ -4,8 +4,8 @@ first_name: Aviad
 last_name: Dahan
 email: aviaddahan@mail.tau.ac.il
 description: >-
-  PhD Student in Electrical Engineering at Tel Aviv University.
-  Research in deep learning, computer vision, image and video editing.
+  Generative AI researcher focused on audio-video generation and editing.
+  PhD candidate at Tel Aviv University.
 
 keywords: deep learning, computer vision, image editing, video editing, medical image segmentation, generative AI
 
@@ -42,7 +42,9 @@ github_username: aviaddahan
 x_username: AviadDahan
 
 # Open Graph / Twitter cards
-og_image: /assets/img/profile.jpg
+social_title: Aviad Dahan | Generative AI Researcher
+og_image: /assets/img/social-preview.png
+og_image_alt: Aviad Dahan. Generative AI researcher. Audio-video generation and editing. Tel Aviv University.
 
 # Defaults
 defaults:

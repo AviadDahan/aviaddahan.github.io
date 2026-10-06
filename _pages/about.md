@@ -10,9 +10,11 @@ profile:
 
 I am a Generative AI researcher focused on audio-video personalization and generation, and a PhD candidate in the School of Electrical Engineering at Tel Aviv University, advised by [Prof. Raja Giryes](https://www.giryes.sites.tau.ac.il/) and [Prof. Lior Wolf](https://www.cs.tau.ac.il/~wolf/).
 
-I work on **generative AI for multimodal audio-video generation and editing**—models that can preserve identity, steer motion, and reshape visual stories.
+I work on **generative AI for multimodal audio-video generation and editing**, building models that can preserve identity, steer motion, and reshape visual stories.
 
 My research spans personalized audiovisual generation, temporally coherent video models, and image editing. I am also interested in adapting foundation models to high-stakes visual domains, including medical image segmentation.
+
+{% include companies.html %}
 
 ## Publications
 

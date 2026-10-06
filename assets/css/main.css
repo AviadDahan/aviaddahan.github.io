@@ -142,6 +142,37 @@ a:hover { color: var(--muted); }
 }
 .social-links a:hover { color: var(--ink); background: var(--acid); transform: translateY(-3px); }
 
+.companies { margin-top: 2.5rem; padding: 1.5rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); scroll-margin-top: 6rem; }
+.companies .companies-heading { display: block; margin: 0 0 1.5rem; color: var(--muted); font-family: var(--mono); font-size: .68rem; font-weight: 400; letter-spacing: .08em; line-height: 1.5; text-transform: uppercase; scroll-margin-top: 6rem; }
+.companies .companies-heading::after { display: none; }
+.companies-viewport { overflow: hidden; }
+.companies-track { display: flex; width: max-content; animation: companies-scroll 36s linear infinite; }
+.companies .company-logos { display: flex; flex-shrink: 0; gap: 1.5rem; padding: .5rem 1.5rem .5rem 0; margin: 0; list-style: none; }
+.companies .company-logos > li { flex: 0 0 148px; width: 148px; padding: 0; border: 0; }
+.companies .company-logos > li::before { display: none; }
+.companies:hover .companies-track { animation-play-state: paused; }
+.companies:focus-within .companies-track { animation: none; }
+.companies:focus-within .companies-viewport { overflow-x: auto; }
+@keyframes companies-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .companies-track { animation: none; }
+  .companies-viewport { overflow-x: auto; }
+  .companies .company-logos[aria-hidden="true"] { display: none; }
+}
+.about-content .companies + h2 { margin-top: 2.5rem; }
+.company-link { display: flex; flex-direction: column; align-items: center; gap: .75rem; height: 100%; text-align: center; text-decoration: none; }
+.company-logo { display: flex; align-items: center; justify-content: center; width: 100%; height: 64px; }
+.company-logo img { display: block; width: 56px; height: 56px; object-fit: contain; }
+.company-logo--wide img { width: min(120px, 100%); height: 64px; }
+.company-logo--dark { width: 76px; background: #13131d; border-radius: 4px; }
+.company-logo--dark img { width: 70px; height: 52px; }
+.company-logo--dark.company-logo--wide { width: 128px; padding: 8px; }
+.company-logo--dark.company-logo--wide img { width: 112px; height: 48px; }
+.company-name { font-family: var(--mono); font-size: .65rem; line-height: 1.5; }
+.company-link:hover .company-name { text-decoration: underline; text-decoration-color: var(--acid); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.company-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+.companies-viewport:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
 .about-content { max-width: 760px; padding-top: clamp(2.5rem, 6vw, 5rem); font-size: clamp(1rem, 1.2vw, 1.15rem); }
 .about-content p { margin: 0 0 1.25rem; }
 .about-content > p:first-of-type { font-size: clamp(1.15rem, 1.7vw, 1.4rem); font-weight: 600; line-height: 1.45; letter-spacing: -.02em; }
@@ -159,7 +190,7 @@ a:hover { color: var(--muted); }
 .about-content h2::after, .cv-section h2::after { flex: 1; height: 1px; content: ""; background: var(--ink); }
 .about-content ul, .cv-section ul { margin: 1.5rem 0 0; padding: 0; list-style: none; }
 .about-content li, .cv-section li { padding: .85rem 0; border-top: 1px solid var(--line); }
-.about-content li::before, .cv-section li::before { margin-right: .8rem; color: var(--muted); content: "—"; }
+.about-content li::before, .cv-section li::before { margin-right: .8rem; color: var(--muted); content: "•"; }
 
 .page-header { padding-bottom: 2rem; border-bottom: 1px solid var(--ink); }
 .page-header::before { content: "Selected work"; }
@@ -215,6 +246,8 @@ a:hover { color: var(--muted); }
   .profile-image { width: min(190px, 52vw); }
   .profile-name { font-size: clamp(5.2rem, 26vw, 8rem); }
   .profile-position { margin-top: 1.75rem; }
+  .companies .company-logos { gap: 1rem; padding-right: 1rem; }
+  .companies .company-logos > li { flex-basis: 128px; width: 128px; }
   .publication { grid-template-columns: 1fr; gap: 1rem; }
   .pub-thumbnail { width: min(280px, 100%); }
   .cv-item { grid-template-columns: 1fr; gap: .45rem; }

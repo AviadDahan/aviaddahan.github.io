@@ -1,0 +1,21 @@
+<section class="companies" aria-labelledby="companies-heading">
+  <h2 id="companies-heading" class="companies-heading">Experience &amp; collaborations</h2>
+  <div class="companies-viewport" tabindex="0" role="group" aria-label="Organization logos. Focus here to pause scrolling.">
+    <div class="companies-track">
+      {% for copy in (1..2) %}
+      <ul class="company-logos"{% if copy == 2 %} aria-hidden="true" inert{% else %} aria-label="Organizations I have worked with"{% endif %}>
+        {% for company in site.data.companies %}
+        <li>
+          <a class="company-link" href="{{ company.url }}" target="_blank" rel="noopener noreferrer">
+            <span class="company-logo{% if company.dark %} company-logo--dark{% endif %}{% if company.wide %} company-logo--wide{% endif %}">
+              <img src="{{ company.logo | prepend: '/assets/img/companies/' | relative_url }}" alt="" decoding="async" width="120" height="64">
+            </span>
+            <span class="company-name">{{ company.name }}</span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+    </div>
+  </div>
+</section>

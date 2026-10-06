@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Aviad Dahan</title>
+  <rect width="64" height="64" rx="10" fill="#161915"/>
+  <g fill="#c6ff00" fill-rule="evenodd">
+    <path d="M7 45 17 19h7l10 26h-7l-2-6H16l-2 6Zm11-12h5l-2.5-8Z"/>
+    <path d="M37 19h10c9 0 13 5 13 13s-4 13-13 13H37Zm7 6v14h3c4 0 6-2 6-7s-2-7-6-7Z"/>
+  </g>
+</svg>
