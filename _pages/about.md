@@ -21,6 +21,25 @@ My research spans personalized audiovisual generation, temporally coherent video
 <div class="publications-list">
 
 <div class="publication">
+  <a class="pub-thumbnail" href="https://sepgen.github.io/" target="_blank" rel="noopener noreferrer" aria-label="Explore SepGen demos">
+    <img src="/assets/img/publications/sepgen.png" alt="SepGen: generation and separation of individual audio stems alongside video" loading="lazy" decoding="async" width="1200" height="630">
+  </a>
+  <div class="pub-content">
+    <span class="pub-title">SepGen: Multi-Stem Audio-Video Separation and Generation in a Single Model</span>
+    <span class="pub-authors"><strong>Aviad Dahan</strong>, Rajaei Khatib, Yonatan Bitton, Idan Szpektor, Lior Wolf, Raja Giryes</span>
+    <span class="pub-venue">arXiv preprint, 2026</span>
+    <div class="pub-links">
+      <a href="https://sepgen.github.io/" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i> Project &amp; demos</a>
+      <a href="https://arxiv.org/abs/2610.11361" target="_blank" rel="noopener noreferrer"><i class="ai ai-arxiv"></i> arXiv</a>
+      <a href="https://github.com/AviadDahan/SepGen" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Code</a>
+      <a href="https://huggingface.co/collections/AviadDahan/sepgen-6ac3e516dd6528007ad32352" target="_blank" rel="noopener noreferrer"><i class="fas fa-cubes"></i> Models</a>
+      <a href="https://huggingface.co/datasets/AviadDahan/SepGen-Dataset" target="_blank" rel="noopener noreferrer"><i class="fas fa-database"></i> Dataset</a>
+    </div>
+  </div>
+</div>
+
+
+<div class="publication">
   <div class="pub-thumbnail">
     <img src="/assets/img/publications/idlora.png" alt="ID-LoRA">
   </div>
