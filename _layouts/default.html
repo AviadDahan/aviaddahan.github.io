@@ -52,6 +52,9 @@
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 
   {% feed_meta %}
+  {% if jekyll.environment == "production" %}
+  <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "05d542e897fb4e7a9b86f5ff6fa9548f"}'></script><!-- End Cloudflare Web Analytics -->
+  {% endif %}
 </head>
 <body>
   <header class="site-header">
