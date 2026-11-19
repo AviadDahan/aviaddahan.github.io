@@ -24,6 +24,9 @@ include:
   - "_pages"
   - "Aviad dahan - CV-2025-latest.pdf"
 exclude:
+  - preview.html
+  - design-option-*.html
+  - _design-previews
   - Gemfile
   - Gemfile.lock
   - node_modules
