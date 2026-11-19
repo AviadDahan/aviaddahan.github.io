@@ -124,10 +124,26 @@ My research spans personalized audiovisual generation, temporally coherent video
 <div class="writing-list">
 
 <div class="cv-item">
+  <span class="cv-date">Jun 2026</span>
+  <div class="cv-content">
+    <h3><a href="https://luma.com/6yzlw3or" target="_blank" rel="noopener noreferrer">Multimodal Generative Agents at Scale</a></h3>
+    <p>Talk, Generative Media TLV (2nd edition), Tel Aviv</p>
+  </div>
+</div>
+
+<div class="cv-item">
   <span class="cv-date">Sep 2024</span>
   <div class="cv-content">
-    <h3><a href="https://www.ingonyama.com/post/solving-reproducibility-challenges-in-deep-learning-and-llms-our-journey" target="_blank" rel="noopener noreferrer">Solving Reproducibility Challenges in Deep Learning and LLMs: Our Journey</a></h3>
+    <h3><a href="https://www.ingonyama.com/oldblogs/solving-reproducibility-challenges-in-deep-learning-and-llms-our-journey" target="_blank" rel="noopener noreferrer">Solving Reproducibility Challenges in Deep Learning and LLMs: Our Journey</a></h3>
     <p>Blog post, Ingonyama</p>
+  </div>
+</div>
+
+<div class="cv-item">
+  <span class="cv-date">Sep 2024</span>
+  <div class="cv-content">
+    <h3>Tipping the Scale: AI's Impact on War-Time Search &amp; Rescue</h3>
+    <p>Talk, Atidim alumni appreciation evening, Tel Aviv</p>
   </div>
 </div>
 
