@@ -118,3 +118,17 @@ My research spans personalized audiovisual generation, temporally coherent video
 </div>
 
 </div>
+
+## Talks & blogs
+
+<div class="writing-list">
+
+<div class="cv-item">
+  <span class="cv-date">Sep 2024</span>
+  <div class="cv-content">
+    <h3><a href="https://www.ingonyama.com/post/solving-reproducibility-challenges-in-deep-learning-and-llms-our-journey" target="_blank" rel="noopener noreferrer">Solving Reproducibility Challenges in Deep Learning and LLMs: Our Journey</a></h3>
+    <p>Blog post, Ingonyama</p>
+  </div>
+</div>
+
+</div>

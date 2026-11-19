@@ -24,6 +24,7 @@ include:
   - "_pages"
   - "Aviad dahan - CV-2025-latest.pdf"
 exclude:
+  - CLAUDE.md
   - preview.html
   - design-option-*.html
   - _design-previews
