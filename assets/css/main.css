@@ -87,7 +87,28 @@ a:hover { color: var(--muted); }
 .mode-toggle .track { position: relative; width: 34px; height: 18px; border: 1px solid var(--ink); border-radius: 999px; background: transparent; transition: background .15s ease; }
 .mode-toggle .track::after { position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--ink); content: ""; transition: left .15s ease; }
 .mode-toggle:hover .track, .mode-toggle:focus-visible .track { background: var(--acid); }
-.mode-toggle:hover .track::after, .mode-toggle:focus-visible .track::after { left: 18px; }
+.mode-toggle:hover .track::after, .mode-toggle:focus-visible .track::after, .mode-toggle.flip .track::after { left: 18px; }
+.mode-toggle.flip .track { background: var(--acid); }
+
+/* switching to Arcade: the page glitches out to black */
+html.mode-out { background: #000; }
+html.mode-out body { animation: mode-glitch-out .56s steps(1, end) forwards; }
+@keyframes mode-glitch-out {
+  0%   { transform: none; filter: none; }
+  12%  { transform: translate(-6px, 0) skewX(-4deg); filter: hue-rotate(90deg) saturate(3) contrast(1.4); }
+  24%  { transform: translate(8px, 2px); filter: invert(1) hue-rotate(200deg); clip-path: inset(10% 0 40% 0); }
+  36%  { transform: translate(-3px, -2px) skewX(6deg); filter: saturate(4) hue-rotate(300deg); clip-path: inset(45% 0 12% 0); }
+  48%  { transform: translate(5px, 0); filter: invert(1) contrast(2); clip-path: inset(0 0 70% 0); }
+  60%  { transform: none; filter: brightness(2) contrast(3); clip-path: inset(30% 0 30% 0); }
+  72%  { filter: brightness(4); clip-path: inset(49.5% 0 49.5% 0); }
+  86%  { filter: brightness(4); clip-path: inset(49.8% 45% 49.8% 45%); }
+  100% { opacity: 0; clip-path: inset(50% 50% 50% 50%); }
+}
+/* arriving from Arcade: a white flash fades into the page */
+html.mode-in body::after { content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none; background: #fff; animation: mode-flash-in .7s ease-out forwards; }
+@keyframes mode-flash-in { 0% { opacity: 1; } 30% { opacity: .85; } 100% { opacity: 0; } }
+html.mode-in body { animation: mode-settle .7s ease-out; }
+@keyframes mode-settle { 0% { filter: saturate(0) contrast(1.6); transform: scale(1.015); } 100% { filter: none; transform: none; } }
 .nav-links a { position: relative; font-family: var(--mono); font-size: .7rem; text-decoration: none; text-transform: uppercase; letter-spacing: .08em; }
 .nav-links a::after { position: absolute; right: 0; bottom: -.35rem; left: 0; height: 2px; content: ""; background: var(--acid); transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
 .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }

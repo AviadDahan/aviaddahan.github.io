@@ -464,6 +464,27 @@ title: Arcade
   .mode-toggle:hover .track::after, .mode-toggle:focus-visible .track::after { left: 8px; }
   .mode-toggle:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
   .mode-toggle .state { color: var(--yellow); }
+  .mode-toggle.flip .track { background: #3a2f66; box-shadow: inset 0 2px 3px rgba(0,0,0,.45); }
+  .mode-toggle.flip .track::after { left: 2px; }
+  .mode-toggle.flip .state { color: var(--dim); }
+  /* switching to Classic: the whole cabinet's CRT powers off to a line, then a dot */
+  html.mode-out body { overflow: hidden; }
+  html.mode-out .cab, html.mode-out .modebar { animation: crt-off .6s cubic-bezier(.6,0,.9,.4) forwards; transform-origin: 50% 50%; }
+  @keyframes crt-off {
+    0%   { transform: none; filter: none; }
+    45%  { transform: scale(1, .006); filter: brightness(4) saturate(0); }
+    75%  { transform: scale(.18, .006); filter: brightness(6) saturate(0); }
+    100% { transform: scale(0, 0); filter: brightness(8); }
+  }
+  /* arriving from Classic: the CRT powers on from a bright line */
+  html.mode-in .cab { animation: crt-on .9s cubic-bezier(.2,.8,.2,1) both; transform-origin: 50% 50%; }
+  @keyframes crt-on {
+    0%   { transform: scale(0, .006); filter: brightness(8) saturate(0); }
+    30%  { transform: scale(1, .006); filter: brightness(5) saturate(0); }
+    55%  { transform: scale(1, 1.03); filter: brightness(1.8); }
+    70%  { transform: scale(1, .99); filter: brightness(1.2) hue-rotate(20deg); }
+    100% { transform: none; filter: none; }
+  }
   .cab { position: relative; }
   @media (max-width: 760px) {
     .modebar { height: 34px; display: flex; align-items: center; justify-content: flex-end; padding: 0 8px; }
@@ -475,6 +496,12 @@ title: Arcade
     .wipe { display: none; }
   }
 </style>
+<script>
+/* Arcade mode switch: apply the arrival effect before the first paint */
+(function () { try { var r = document.documentElement, v = sessionStorage.getItem("ad-mode-switch");
+  if (v === "to-arcade" && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) { sessionStorage.removeItem("ad-mode-switch"); r.classList.add("mode-in"); setTimeout(function () { r.classList.remove("mode-in"); }, 1100); }
+} catch (e) {} })();
+</script>
 </head>
 <body>
 <nav class="modebar" aria-label="Site version"></nav>
@@ -753,7 +780,8 @@ function buildTargets() {
   layout();
 }
 function layout() {
-  const r = field.getBoundingClientRect(); W = r.width; H = r.height;
+  // layout sizes, not on-screen rects: the CRT power-on scales the cabinet while the page loads
+  const r = { width: field.clientWidth, height: field.clientHeight }; W = r.width; H = r.height;
   fx.width = Math.round(W); fx.height = Math.round(H);
   // papers on top (one row on wide screens, two rows of three on narrow ones), talks and blogs in a row in front of them
   const wide = W >= 700, cols = wide ? 6 : 3, rows = wide ? 1 : 2, gap = wide ? 14 : 10, side = wide ? 24 : 12;
@@ -839,7 +867,7 @@ function draw() {
 
 /* ---------------- starfield ---------------- */
 const stars = $("#stars"), sctx = stars.getContext("2d"); let starList = [];
-function sizeStars() { const r = stars.getBoundingClientRect(); stars.width = Math.max(1, r.width / 3 | 0); stars.height = Math.max(1, r.height / 3 | 0);
+function sizeStars() { const r = { width: stars.clientWidth, height: stars.clientHeight }; stars.width = Math.max(1, r.width / 3 | 0); stars.height = Math.max(1, r.height / 3 | 0);
   starList = Array.from({ length: 90 }, () => ({ x: Math.random() * stars.width, y: Math.random() * stars.height, z: Math.random() * .9 + .1 })); }
 function drawStars(dt) {
   sctx.fillStyle = "#0b0722"; sctx.fillRect(0, 0, stars.width, stars.height);
@@ -1023,7 +1051,7 @@ SITE.pubs.forEach((p, i) => loadImg(p.img).then(im => { Bn.imgs[i] = im; }));
 const BLOB = ["..####..", ".######.", "########", "##.##.##", "########", "########", ".#.##.#.", "#.#..#.#"];
 const BLOB2 = ["..#..#..", "...##...", ".######.", "##.##.##", "########", ".######.", "..#..#..", ".#....#."];
 function sizeBonus() {
-  const r = bonusEl.getBoundingClientRect(), dpr = Math.min(3, window.devicePixelRatio || 1);
+  const r = { width: bonusEl.clientWidth, height: bonusEl.clientHeight }, dpr = Math.min(3, window.devicePixelRatio || 1);
   Bn.W = Math.round(r.width); Bn.H = Math.round(r.height);
   bcv.width = Math.round(Bn.W * dpr); bcv.height = Math.round(Bn.H * dpr); bctx.setTransform(dpr, 0, 0, dpr, 0, 0); bctx.imageSmoothingEnabled = false;
   const n = SITE.pubs.length, gap = Bn.W < 500 ? 6 : 12, side = Bn.W < 500 ? 8 : 24;
@@ -1283,6 +1311,24 @@ setTop(); sizeStars(); buildTargets(); updateTop();
 allDone = [...opened].filter(i => i < NP).length === NP;
 $("#startBtn").focus({ preventScroll: true });
 requestAnimationFrame(frame);
+</script>
+<script>
+/* Arcade mode switch effect: Classic -> Arcade glitches out and the arcade CRT powers on;
+   Arcade -> Classic powers the CRT off to a dot and the classic page fades up from a flash. */
+(function () {
+  var root = document.documentElement, KEY = "ad-mode-switch", HERE = "arcade", NEXT = "classic";
+  var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.addEventListener("pageshow", function (e) { if (e.persisted) root.classList.remove("mode-out", "mode-in"); });
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest(".mode-toggle");
+    if (!a || reduced || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+    e.preventDefault();
+    try { sessionStorage.setItem(KEY, "to-" + NEXT); } catch (err) {}
+    a.classList.add("flip"); a.setAttribute("aria-checked", NEXT === "arcade" ? "true" : "false");
+    setTimeout(function () { root.classList.add("mode-out"); }, 160);
+    setTimeout(function () { location.href = a.href; }, 780);
+  });
+})();
 </script>
 </body>
 </html>

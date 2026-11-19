@@ -55,6 +55,12 @@
   {% if jekyll.environment == "production" %}
   <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "05d542e897fb4e7a9b86f5ff6fa9548f"}'></script><!-- End Cloudflare Web Analytics -->
   {% endif %}
+<script>
+/* Arcade mode switch: apply the arrival effect before the first paint */
+(function () { try { var r = document.documentElement, v = sessionStorage.getItem("ad-mode-switch");
+  if (v === "to-classic" && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) { sessionStorage.removeItem("ad-mode-switch"); r.classList.add("mode-in"); setTimeout(function () { r.classList.remove("mode-in"); }, 1100); }
+} catch (e) {} })();
+</script>
 </head>
 <body>
   <header class="site-header">
@@ -77,5 +83,23 @@
       <p>&copy; {{ site.time | date: '%Y' }} {{ site.first_name }} {{ site.last_name }}. Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a>.</p>
     </div>
   </footer>
+<script>
+/* Arcade mode switch effect: Classic -> Arcade glitches out and the arcade CRT powers on;
+   Arcade -> Classic powers the CRT off to a dot and the classic page fades up from a flash. */
+(function () {
+  var root = document.documentElement, KEY = "ad-mode-switch", HERE = "classic", NEXT = "arcade";
+  var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.addEventListener("pageshow", function (e) { if (e.persisted) root.classList.remove("mode-out", "mode-in"); });
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest(".mode-toggle");
+    if (!a || reduced || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+    e.preventDefault();
+    try { sessionStorage.setItem(KEY, "to-" + NEXT); } catch (err) {}
+    a.classList.add("flip"); a.setAttribute("aria-checked", NEXT === "arcade" ? "true" : "false");
+    setTimeout(function () { root.classList.add("mode-out"); }, 160);
+    setTimeout(function () { location.href = a.href; }, 720);
+  });
+})();
+</script>
 </body>
 </html>
