@@ -1,0 +1,1245 @@
+---
+layout: null
+permalink: /arcade/
+title: Arcade
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aviad Dahan | Arcade</title>
+<meta name="description" content="Aviad Dahan's site as an arcade cabinet: bio, papers and talks, plus Paper Defender, a small game about protecting the papers from a swarm of noise.">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}">
+<meta property="og:title" content="Aviad Dahan | Arcade">
+<meta property="og:image" content="{{ site.og_image | absolute_url }}">
+{% if jekyll.environment == "production" %}
+<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "05d542e897fb4e7a9b86f5ff6fa9548f"}'></script><!-- End Cloudflare Web Analytics -->
+{% endif %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cab: #1b1230;
+    --cab-edge: #2c1f4d;
+    --screen: #0b0722;
+    --pink: #ff3d7f;
+    --cyan: #3ee8ff;
+    --yellow: #ffe23e;
+    --orange: #ff8a1f;
+    --paper: #f4f0ff;
+    --dim: #8e86c0;
+    --line: #3a2f66;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { background: #07051a radial-gradient(ellipse 60% 50% at 50% 30%, #241650, #07051a 75%); color: var(--paper); font-family: "DotGothic16", ui-monospace, monospace; overflow: hidden; -webkit-tap-highlight-color: transparent; }
+  button { font: inherit; color: inherit; }
+
+  /* ---------------- cabinet ---------------- */
+  .cab { height: 100%; max-width: 1180px; margin: 0 auto; display: grid; grid-template-rows: auto 1fr auto; padding: 12px 18px 0; }
+  .marquee { position: relative; overflow: hidden; text-align: center; padding: 12px 16px 10px; border-radius: 14px 14px 4px 4px; background: linear-gradient(180deg, #2a0f3f, #12082a); border: 4px solid var(--cab-edge); box-shadow: inset 0 0 40px rgba(255,61,127,.35), 0 0 30px rgba(255,61,127,.25); }
+  .marquee::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 46px, rgba(255,255,255,.04) 46px 48px); }
+  .marquee h1 { margin: 0; font: clamp(18px, 3.4vw, 38px)/1.1 "Press Start 2P", monospace; letter-spacing: .04em;
+    background: linear-gradient(180deg, #fff 0 30%, var(--yellow) 30% 55%, var(--orange) 55% 75%, var(--pink) 75%); -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(3px 3px 0 #3b0d4a) drop-shadow(0 0 12px rgba(255,61,127,.6)); animation: hum 7s infinite; position: relative; }
+  @keyframes hum { 0%, 92%, 100% { opacity: 1; } 93% { opacity: .55; } 94% { opacity: 1; } 96% { opacity: .7; } }
+  .marquee p { position: relative; text-shadow: 0 0 8px rgba(62,232,255,.7); margin: 8px 0 0; font: 10px/1.5 "Press Start 2P", monospace; color: var(--cyan); }
+  .mid { display: grid; grid-template-columns: 44px 1fr 44px; min-height: 0; background: var(--cab); border-left: 4px solid var(--cab-edge); border-right: 4px solid var(--cab-edge); }
+  .side { background: linear-gradient(160deg, transparent 0 30%, var(--pink) 30% 36%, transparent 36% 44%, var(--orange) 44% 49%, transparent 49% 56%, var(--yellow) 56% 60%, transparent 60%), var(--cab); opacity: .9; }
+  .side.r { transform: scaleX(-1); }
+  .bezel { padding: 14px; min-height: 0; display: grid; }
+  .screen { position: relative; min-height: 0; overflow: hidden; border-radius: 16px / 20px; background: var(--screen); box-shadow: 0 0 0 6px #000, 0 0 0 9px #2b2346, inset 0 0 80px rgba(0,0,0,.8); }
+  .screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 30; background: repeating-linear-gradient(0deg, rgba(0,0,0,.22) 0 1px, transparent 1px 3px), radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,.6)); }
+  #stars { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+
+  /* top bar */
+  .topline { position: absolute; top: 0; left: 0; right: 0; z-index: 6; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 12px 18px; font: 9px/1.7 "Press Start 2P", monospace; }
+  .topline b { display: block; font-weight: 400; color: var(--pink); }
+  .scores { display: flex; gap: 26px; }
+  .menu { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .menu button { background: none; border: 2px solid var(--line); padding: 6px 8px; font: 9px "Press Start 2P", monospace; color: var(--paper); cursor: pointer; }
+  .menu button:hover, .menu button:focus-visible { border-color: var(--cyan); color: var(--yellow); outline: none; }
+
+  /* ---------------- the field: papers are the targets ---------------- */
+  .field { position: absolute; inset: var(--top, 52px) 0 0; }
+  #fx { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+  .targets { position: absolute; inset: 0; pointer-events: none; }
+  .target {
+    position: absolute; left: 0; top: 0; pointer-events: auto; padding: 0; cursor: pointer; text-align: left;
+    background: #140e33; border: 3px solid var(--line); border-radius: 4px; overflow: hidden;
+    will-change: transform; transition: border-color .15s;
+  }
+  .target canvas { display: block; width: 100%; image-rendering: pixelated; background: #fff; }
+  .target .meta { display: block; padding: 6px 8px 7px; }
+  .target .nm { display: block; font: 9px/1.4 "Press Start 2P", monospace; color: var(--paper); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .target .vn { display: block; margin-top: 3px; font-size: 14px; line-height: 1.2; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .target .pips { position: absolute; top: 5px; right: 5px; display: flex; gap: 3px; }
+  .target .pips i { width: 8px; height: 8px; background: rgba(11,7,34,.75); border: 1px solid var(--paper); }
+  .target .pips i.on { background: var(--yellow); border-color: var(--yellow); }
+  .target .no { position: absolute; top: 5px; left: 5px; font: 8px "Press Start 2P", monospace; background: var(--yellow); color: var(--screen); padding: 3px 4px; }
+  .target.talk { display: grid; grid-template-rows: auto 1fr auto; gap: 4px; padding: 8px 10px 7px; background: linear-gradient(180deg, #221650, #140e33); }
+  .target.talk .kind { font: 7px "Press Start 2P", monospace; color: var(--screen); background: var(--pink); justify-self: start; padding: 3px 5px; }
+  .target.talk .tt { font-size: 14px; line-height: 1.2; color: var(--paper); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .target.talk .vn { margin: 0; font-size: 12px; }
+  .talkpanel { grid-template-columns: 1fr; max-width: 760px; }
+  .target:hover, .target:focus-visible { border-color: var(--cyan); outline: none; box-shadow: 0 0 0 2px var(--pink); }
+  .target.hit { border-color: var(--yellow); }
+  .target.opened { border-color: var(--yellow); }
+  .target.opened .no { background: var(--cyan); }
+  .target.opened .vn::after { content: "  OPENED"; color: var(--yellow); font: 7px "Press Start 2P", monospace; }
+
+  .hint { position: absolute; left: 0; right: 0; text-align: center; font: 9px/2 "Press Start 2P", monospace; color: var(--dim); pointer-events: none; transition: opacity .6s; }
+  .hint kbd { font: inherit; color: var(--cyan); }
+  .hint.gone { opacity: 0; }
+  .toast { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); font: 12px "Press Start 2P", monospace; color: var(--yellow); text-shadow: 3px 3px 0 #3b0d4a; pointer-events: none; opacity: 0; transition: opacity .3s; white-space: nowrap; }
+  .toast.show { opacity: 1; }
+
+  /* ---------------- title screen ---------------- */
+  .title { position: absolute; inset: var(--top, 52px) 0 0; overflow: auto; display: grid; place-items: center; padding: 12px 28px 26px; }
+  .title.gone { display: none; }
+  .screen.intitle .field, .screen.inbonus .field { visibility: hidden; }
+  .title-grid { display: grid; width: 100%; grid-template-columns: 200px 1fr; gap: 36px; align-items: center; }
+  .title .face { width: 200px; height: 200px; object-fit: cover; border: 3px solid var(--yellow); box-shadow: 6px 6px 0 var(--pink), 0 0 30px rgba(255,226,62,.25); display: block; }
+  .logo { margin: 0; font: clamp(22px, 3.3vw, 40px)/1.1 "Press Start 2P", monospace; letter-spacing: .02em;
+    background: linear-gradient(180deg, #fff 0 22%, var(--cyan) 22% 50%, #2a7cff 50% 54%, var(--cyan) 54% 70%, #fff 70%); -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(4px 4px 0 var(--pink)) drop-shadow(0 0 18px rgba(62,232,255,.35)); }
+  .tag { margin: 14px 0 10px; font: 10px/1.8 "Press Start 2P", monospace; color: var(--yellow); }
+  .bio { margin: 0 0 8px; font-size: 17px; line-height: 1.5; color: var(--paper); max-width: 58ch; }
+  .bio.small { font-size: 15px; color: var(--dim); } .bio a { color: var(--yellow); }
+  .start { margin-top: 12px; background: none; border: 0; padding: 4px 0; cursor: pointer; font: clamp(13px, 1.6vw, 18px) "Press Start 2P", monospace; color: var(--paper); text-shadow: 0 0 10px rgba(62,232,255,.7); }
+  .start:focus-visible { outline: 2px dashed var(--cyan); outline-offset: 8px; }
+  .blink { animation: blink 1s steps(2) infinite; } @keyframes blink { 50% { opacity: 0; } }
+  .title .hint2 { margin: 4px 0 0; font: 8px/2 "Press Start 2P", monospace; color: var(--dim); }
+  .wipe { position: absolute; inset: 0; z-index: 25; pointer-events: none; display: grid; grid-template-columns: repeat(16, 1fr); }
+  .wipe i { background: var(--screen); transform: scaleY(0); transform-origin: top; }
+  .wipe.go i { animation: wipe .42s steps(6) both; animation-delay: calc(var(--k) * 14ms); }
+  @keyframes wipe { 0% { transform: scaleY(0); } 45%, 55% { transform: scaleY(1); } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+  /* ---------------- panels (open on top of the field; the game pauses) ---------------- */
+  .panel { position: absolute; inset: var(--top, 52px) 0 0; overflow: auto; background: var(--screen); display: none; scrollbar-width: thin; scrollbar-color: var(--dim) transparent; }
+  .panel.open { display: block; }
+  .stage { padding: 10px 30px 24px; display: grid; grid-template-columns: minmax(0, 1.1fr) 1fr; gap: 28px; align-items: start; }
+  .shot { border: 3px solid var(--cyan); background: #fff; box-shadow: 6px 6px 0 var(--pink); }
+  .shot img { display: block; width: 100%; height: auto; }
+  .kicker { font: 9px "Press Start 2P", monospace; color: var(--pink); margin: 0 0 12px; }
+  .stage h2 { margin: 0 0 14px; font-size: clamp(20px, 2.2vw, 28px); line-height: 1.2; font-weight: 400; }
+  .who { margin: 0 0 6px; font-size: 18px; color: var(--dim); line-height: 1.4; }
+  .who b { color: var(--paper); font-weight: 400; text-decoration: underline; text-decoration-color: var(--pink); text-underline-offset: 4px; }
+  .venue { margin: 0 0 20px; font-size: 18px; color: var(--yellow); }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .links a { display: inline-block; padding: 9px 12px; font: 9px "Press Start 2P", monospace; color: var(--screen); background: var(--cyan); text-decoration: none; box-shadow: 4px 4px 0 var(--pink); }
+  .links a:hover, .links a:focus-visible { background: var(--yellow); outline: none; }
+  .nav { position: sticky; top: 0; z-index: 41; display: flex; justify-content: space-between; gap: 10px; padding: 12px 30px 10px; margin-bottom: 8px; font: 9px "Press Start 2P", monospace; background: var(--screen); border-bottom: 2px dashed rgba(58,47,102,.9); }
+  .nav button { background: none; border: 0; color: var(--dim); cursor: pointer; font: inherit; padding: 6px 0; }
+  .nav button:hover, .nav button:focus-visible { color: var(--yellow); outline: none; }
+  .nav .navhint { color: var(--dim); opacity: .7; padding: 6px 0; }
+  .menu .mainmenu { color: var(--yellow); border-color: rgba(255,226,62,.5); }
+  /* arrows drawn in CSS so they sit on the text's centre line (the font has no arrow glyphs) */
+  .mainmenu, .arrow-l, .arrow-r { display: inline-flex; align-items: center; gap: 7px; }
+  .mainmenu::before, .arrow-l::before { content: ""; border-style: solid; border-width: 4px 6px 4px 0; border-color: transparent currentColor transparent transparent; }
+  .arrow-r::after { content: ""; border-style: solid; border-width: 4px 0 4px 6px; border-color: transparent transparent transparent currentColor; }
+  .screen.intitle .menu .mainmenu { display: none; } /* only shown away from the main page */
+  .p1 { padding: 10px 30px 24px; display: grid; grid-template-columns: 200px 1fr; gap: 30px; }
+  .p1 .face { width: 200px; height: 200px; object-fit: cover; display: block; border: 3px solid var(--yellow); box-shadow: 6px 6px 0 var(--pink); background: #241650; }
+  .banner { margin: 0 30px 6px; padding: 10px 14px; border: 2px dashed var(--yellow); font: 9px/1.8 "Press Start 2P", monospace; color: var(--yellow); }
+  .stats { display: grid; grid-template-columns: max-content 1fr; gap: 8px 18px; margin: 0 0 18px; font-size: 18px; }
+  .stats dt { font: 9px/2.2 "Press Start 2P", monospace; color: var(--cyan); }
+  .stats dd { margin: 0; } .stats a { color: var(--yellow); }
+  .p1 p { margin: 0 0 14px; font-size: 18px; line-height: 1.55; max-width: 62ch; }
+  .h2 { margin: 0; padding: 10px 30px 4px; font: clamp(11px, 1.4vw, 15px) "Press Start 2P", monospace; color: var(--yellow); }
+  .coop { list-style: none; margin: 0; padding: 14px 30px 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+  .coop a { display: grid; gap: 10px; text-decoration: none; color: var(--paper); font: 8px/1.5 "Press Start 2P", monospace; text-align: center; padding: 10px; border: 2px solid var(--line); }
+  .coop a:hover, .coop a:focus-visible { border-color: var(--cyan); color: var(--yellow); outline: none; }
+  .coop .logo { height: 60px; display: grid; place-items: center; background: #f4f0ff; padding: 10px; }
+  .coop .logo.dark { background: #1d1544; }
+  .coop img { max-width: 100%; max-height: 40px; }
+  .cont ul { list-style: none; padding: 14px 30px 24px; margin: 0; display: grid; gap: 14px; max-width: 640px; }
+  .cont li { display: grid; grid-template-columns: 10em 1fr; gap: 12px; font-size: 19px; align-items: baseline; }
+  .cont li span { font: 9px "Press Start 2P", monospace; color: var(--cyan); }
+  .cont a { color: var(--yellow); }
+
+  /* ---------------- control deck ---------------- */
+  .deck { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 14px 34px 22px; background: linear-gradient(180deg, #3a2a63, #1d1438 70%); border: 4px solid var(--cab-edge); border-top: 0; border-radius: 0 0 22px 22px; clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%); user-select: none; -webkit-user-select: none; touch-action: none; }
+  .stick { position: relative; width: 104px; height: 104px; }
+  .stick .gate { position: absolute; inset: 14px; border-radius: 50%; background: #0d0920; box-shadow: inset 0 3px 8px #000; }
+  .stick .shaft { position: absolute; left: 50%; top: 50%; width: 14px; height: 36px; margin: -36px 0 0 -7px; background: linear-gradient(90deg, #888, #eee, #888); border-radius: 6px; transform-origin: 50% 100%; transition: transform .06s; }
+  .stick .ball { position: absolute; left: 50%; top: -18px; width: 40px; height: 40px; margin-left: -20px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff9bbf, var(--pink) 45%, #9a0f45); box-shadow: 0 4px 0 #5b0727; }
+  .stick button { position: absolute; width: 50%; height: 100%; top: 0; background: none; border: 0; cursor: pointer; z-index: 2; }
+  .stick [data-k="left"] { left: -10%; } .stick [data-k="right"] { right: -10%; }
+  .btns { display: flex; gap: 22px; align-items: flex-end; }
+  .bt { display: grid; justify-items: center; gap: 8px; font: 9px "Press Start 2P", monospace; color: var(--dim); background: none; border: 0; padding: 0; cursor: pointer; }
+  .bt i { width: 58px; height: 58px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff8, transparent 40%), var(--c); box-shadow: 0 6px 0 color-mix(in srgb, var(--c) 45%, #000), 0 0 0 4px #0d0920; transition: transform .05s, box-shadow .05s; }
+  .bt.small i { width: 36px; height: 20px; border-radius: 10px; }
+  .bt.down i { transform: translateY(5px); box-shadow: 0 1px 0 color-mix(in srgb, var(--c) 45%, #000), 0 0 0 4px #0d0920; }
+  .bt:focus-visible, .coin:focus-visible, .snd:focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; border-radius: 8px; }
+  .slots { display: flex; gap: 18px; align-items: center; }
+  .coin { display: grid; justify-items: center; gap: 6px; background: none; border: 0; cursor: pointer; padding: 0; font: 9px "Press Start 2P", monospace; color: var(--orange); }
+  .coin span.slot { width: 44px; height: 60px; border-radius: 6px; background: #120c26; box-shadow: inset 0 0 0 3px #4a3a7a; display: grid; place-items: center; }
+  .coin span.slot::before { content: ""; width: 4px; height: 24px; background: #000; box-shadow: 0 0 10px var(--orange), 0 0 3px var(--orange); border-radius: 2px; animation: glow 1.4s ease-in-out infinite; }
+  @keyframes glow { 50% { box-shadow: 0 0 2px var(--orange); } }
+  .snd { background: #120c26; border: 2px solid #4a3a7a; border-radius: 6px; padding: 8px 10px; font: 9px "Press Start 2P", monospace; color: var(--dim); cursor: pointer; }
+  .snd[aria-pressed="true"] { color: var(--yellow); border-color: var(--yellow); }
+  .legend { position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%); font: 8px "Press Start 2P", monospace; color: var(--dim); white-space: nowrap; opacity: .8; }
+
+  @media (max-width: 760px) {
+    .title { padding: 10px 16px 20px; place-items: start center; }
+    .title-grid { grid-template-columns: 1fr; gap: 16px; justify-items: start; }
+    .title .face { width: 96px; height: 96px; }
+    .logo { font-size: 26px; } .tag { margin: 12px 0 10px; }
+    .bio { font-size: 16px; } .bio.small { font-size: 14px; }
+    .cab { padding: 0; }
+    .marquee { border-radius: 0; padding: 8px; } .marquee p { font-size: 7px; }
+    .mid { grid-template-columns: 1fr; } .side { display: none; }
+    .bezel { padding: 8px; }
+    .topline { padding: 10px; font-size: 7px; flex-direction: column; gap: 8px; }
+    .scores { gap: 14px; }
+    .menu { justify-content: flex-start; } .menu button { font-size: 7px; padding: 5px 6px; }
+
+    .target .meta { padding: 4px 5px 5px; } .target .nm { font-size: 7px; } .target .vn { font-size: 12px; }
+    .target .pips i { width: 6px; height: 6px; }
+    .stage, .p1 { grid-template-columns: 1fr; padding: 8px 16px 18px; gap: 18px; }
+    .p1 .face { width: 140px; height: 140px; }
+    .nav, .banner, .h2 { padding-left: 16px; padding-right: 16px; margin-left: 0; margin-right: 0; }
+    .coop, .cont ul { padding: 12px 16px 20px; }
+    .cont li { grid-template-columns: 1fr; gap: 2px; }
+    .deck { padding: 10px 14px 16px; clip-path: none; border-radius: 0; gap: 8px; }
+    .stick { width: 88px; height: 88px; }
+    .bt i { width: 46px; height: 46px; } .bt { font-size: 7px; } .btns { gap: 12px; }
+    .slots { flex-direction: column; gap: 8px; } .coin span.slot { width: 32px; height: 42px; } .snd { padding: 6px; font-size: 7px; }
+    .legend { display: none; }
+  }
+
+  /* ================= the physical cabinet: laminate grain, T-molding, screws, backlit plastic, glass ================= */
+  :root {
+    --speck: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    --grain-v: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.45 .008' numOctaves='4' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 -.1'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+    --grain-h: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.006 .5' numOctaves='4' seed='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .45 -.08'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+    --brushed: repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 1px, rgba(0,0,0,.05) 1px 2px, transparent 2px 4px);
+    --screw: radial-gradient(circle at 40% 35%, #f1eff8 0 1px, #a9a5bd 2px, #5d5872 4px, #2a2638 5px, transparent 6px);
+    --tmold: #c4185a;
+  }
+  .cab {
+    position: relative; padding: 14px 22px 0; gap: 0;
+    background: var(--speck), var(--grain-v), linear-gradient(90deg, #110a20 0%, #22173d 9%, #1f1538 50%, #22173d 91%, #110a20 100%);
+    border-left: 7px solid var(--tmold); border-right: 7px solid var(--tmold); border-top: 7px solid var(--tmold); border-radius: 26px 26px 0 0;
+    box-shadow: inset 2px 0 0 rgba(255,255,255,.18), inset -2px 0 0 rgba(255,255,255,.18), inset 0 2px 0 rgba(255,255,255,.18), 0 30px 80px rgba(0,0,0,.7);
+  }
+  .cab::before { /* worn highlight down the T-molding */
+    content: ""; position: absolute; inset: -7px; border-radius: 26px 26px 0 0; pointer-events: none;
+    background: linear-gradient(90deg, rgba(255,255,255,.16) 0 2px, transparent 2px calc(100% - 2px), rgba(255,255,255,.16) calc(100% - 2px)); }
+  .marquee {
+    border: 0; border-radius: 6px; padding: 10px 16px 9px; margin: 0 6px;
+    background:
+      radial-gradient(ellipse 55% 140% at 50% 50%, rgba(255,240,255,.22), transparent 70%),
+      var(--speck), var(--speck),
+      repeating-linear-gradient(90deg, transparent 0 46px, rgba(255,255,255,.035) 46px 48px),
+      linear-gradient(180deg, #3a1352, #1b0b33 60%, #12082a);
+    box-shadow: 0 0 0 5px #0c0816, 0 0 0 9px #6e6985, 0 0 0 10px #2a2638, inset 0 0 40px rgba(255,61,127,.35), 0 0 34px rgba(255,61,127,.3);
+  }
+  .marquee::before { background: var(--screw) 6px 6px / 14px 14px no-repeat, var(--screw) calc(100% - 6px) 6px / 14px 14px no-repeat, var(--screw) 6px calc(100% - 6px) / 14px 14px no-repeat, var(--screw) calc(100% - 6px) calc(100% - 6px) / 14px 14px no-repeat; z-index: 1; }
+  .mid { background: none; border: 0; margin-top: 14px; grid-template-columns: 40px 1fr 40px; }
+  .side {
+    background:
+      var(--speck),
+      linear-gradient(160deg, transparent 0 30%, var(--pink) 30% 36%, transparent 36% 44%, var(--orange) 44% 49%, transparent 49% 56%, var(--yellow) 56% 60%, transparent 60%);
+    opacity: .85; }
+  .bezel {
+    position: relative; padding: 18px; border-radius: 12px;
+    background: var(--speck), radial-gradient(ellipse at 50% 0%, #241a40, #0d0919 70%);
+    box-shadow: inset 0 0 0 2px #2b2346, inset 0 3px 14px rgba(0,0,0,.9), 0 1px 0 rgba(255,255,255,.08);
+  }
+  .bezel::before { /* printed pinstripe around the glass */
+    content: ""; position: absolute; inset: 7px; border-radius: 9px; pointer-events: none;
+    border: 1px solid rgba(255,61,127,.45); box-shadow: 0 0 0 3px rgba(62,232,255,.12); }
+  .bezel::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: var(--screw) 4px 4px / 12px 12px no-repeat, var(--screw) calc(100% - 4px) 4px / 12px 12px no-repeat, var(--screw) 4px calc(100% - 4px) / 12px 12px no-repeat, var(--screw) calc(100% - 4px) calc(100% - 4px) / 12px 12px no-repeat; }
+  .glass { position: absolute; inset: 0; z-index: 31; pointer-events: none; border-radius: inherit;
+    background: linear-gradient(118deg, rgba(255,255,255,.075) 0 18%, transparent 34%), radial-gradient(ellipse 80% 30% at 30% 0%, rgba(255,255,255,.06), transparent 70%), var(--speck);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); }
+  .deck {
+    margin: 14px -22px 0; padding: 12px 46px 26px; border: 0; border-top: 3px solid #0c0816; border-radius: 0; clip-path: none;
+    background:
+      var(--screw) 14px 12px / 14px 14px no-repeat, var(--screw) calc(100% - 14px) 12px / 14px 14px no-repeat,
+      var(--speck), var(--grain-h),
+      radial-gradient(ellipse 40% 90% at 18% 60%, rgba(255,61,127,.16), transparent 70%),
+      radial-gradient(ellipse 40% 90% at 82% 60%, rgba(62,232,255,.12), transparent 70%),
+      linear-gradient(180deg, #4a3578 0, #36265e 30%, #241843 100%);
+    box-shadow: inset 0 2px 0 rgba(255,255,255,.18), inset 0 -12px 0 #150e27, inset 0 -15px 0 var(--tmold), inset 0 -16px 0 rgba(255,255,255,.25);
+  }
+  .stick .gate { box-shadow: inset 0 3px 8px #000, 0 0 0 4px #241843, 0 0 0 6px rgba(255,255,255,.08); }
+  .stick .ball { background: radial-gradient(circle at 34% 28%, #fff 0 3px, #ffb3cd 5px, var(--pink) 45%, #9a0f45); }
+  .bt i { box-shadow: 0 6px 0 color-mix(in srgb, var(--c) 45%, #000), 0 0 0 4px #0d0920, 0 0 0 7px rgba(255,255,255,.07), 0 8px 10px rgba(0,0,0,.5); }
+  .coindoor { display: flex; gap: 14px; align-items: center; padding: 10px 12px; border-radius: 6px;
+    background: var(--screw) 3px 3px / 10px 10px no-repeat, var(--screw) calc(100% - 3px) calc(100% - 3px) / 10px 10px no-repeat, var(--brushed), var(--speck), linear-gradient(180deg, #6b6782, #403c52);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -2px 0 rgba(0,0,0,.4), 0 3px 0 #0c0816; }
+  .coindoor .coin span.slot { background: #0b0816; box-shadow: inset 0 0 0 3px #2a2638, inset 0 2px 4px #000; }
+  .coindoor .coin { color: #ffc27a; text-shadow: 0 1px 0 #000; }
+  .coindoor .snd { background: #1a1628; border-color: #2a2638; }
+  .legend { bottom: 18px; color: #b9b1e0; opacity: .7; }
+
+  /* the screen layers stack in DOM order (field, panel, title, bonus) without their own stacking contexts,
+     so the portrait can sit above the scanlines and glass and stay a clean photo */
+  .face, .sharp, .wcard img { position: relative; z-index: 40; } /* photos and paper figures stay clean: above the scanlines and glass */
+  /* ================= leaderboard ================= */
+  .lb-sub { margin: 0; padding: 0 30px 10px; font: 8px/2 "Press Start 2P", monospace; color: var(--dim); }
+  .lb { list-style: none; margin: 0; padding: 6px 30px 22px; display: grid; gap: 8px; max-width: 760px; }
+  .lb li { display: grid; grid-template-columns: 4.5em 120px 1fr; gap: 18px; align-items: center; padding: 6px 10px; border-bottom: 2px dashed rgba(58,47,102,.8); }
+  .lb .rk { font: 11px "Press Start 2P", monospace; }
+  .lb li:nth-child(6n+1) .rk, .lb li:nth-child(6n+1) a { color: var(--pink); } .lb li:nth-child(6n+2) .rk, .lb li:nth-child(6n+2) a { color: var(--orange); }
+  .lb li:nth-child(6n+3) .rk, .lb li:nth-child(6n+3) a { color: var(--yellow); } .lb li:nth-child(6n+4) .rk, .lb li:nth-child(6n+4) a { color: #8dff6a; }
+  .lb li:nth-child(6n+5) .rk, .lb li:nth-child(6n+5) a { color: var(--cyan); } .lb li:nth-child(6n) .rk, .lb li:nth-child(6n) a { color: #b58cff; }
+  .lb .logo { height: 40px; display: grid; place-items: center; background: #f4f0ff; padding: 6px 10px; }
+  .lb .logo.dark { background: #1d1544; } .lb img { max-width: 100%; max-height: 28px; }
+  .lb a { font: 11px/1.5 "Press Start 2P", monospace; text-decoration: none; }
+  .lb a:hover, .lb a:focus-visible { text-decoration: underline; outline: none; }
+  @media (max-width: 760px) { .lb-sub { padding: 0 16px 8px; } .lb { padding: 6px 16px 18px; } .lb li { grid-template-columns: 3.4em 76px 1fr; gap: 10px; } .lb a, .lb .rk { font-size: 8px; } }
+
+  /* ================= talks ================= */
+  .talks { list-style: none; margin: 0; padding: 12px 30px 22px; display: grid; gap: 0; max-width: 820px; }
+  .talks li { display: grid; grid-template-columns: 8em 1fr; gap: 18px; padding: 14px 0; border-bottom: 2px dashed rgba(58,47,102,.8); }
+  .talks .dt { font: 9px/2 "Press Start 2P", monospace; color: var(--pink); }
+  .talks .tt { margin: 0 0 4px; font-size: 21px; line-height: 1.3; }
+  .talks .tt a { color: var(--yellow); }
+  .talks .wh { margin: 0; font-size: 17px; color: var(--dim); }
+  @media (max-width: 760px) { .talks { padding: 10px 16px 18px; } .talks li { grid-template-columns: 1fr; gap: 4px; } .talks .tt { font-size: 18px; } }
+
+  /* ================= contact links on the title screen ================= */
+  .tlinks { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; padding: 0; list-style: none; }
+  .tlinks a { display: inline-block; padding: 7px 9px; font: 8px "Press Start 2P", monospace; color: var(--screen); background: var(--cyan); text-decoration: none; box-shadow: 3px 3px 0 var(--pink); }
+  .tlinks a:hover, .tlinks a:focus-visible { background: var(--yellow); outline: none; }
+
+  /* ================= bonus stage ================= */
+  .bonus { position: absolute; inset: var(--top, 52px) 0 0; display: none; }
+  .bonus.open { display: block; }
+  #bcv { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+  .bover { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; background: rgba(11,7,34,.72); }
+  .bover.hide { display: none; }
+  .bover h2 { margin: 0 0 16px; font: clamp(16px, 2.6vw, 28px) "Press Start 2P", monospace; color: var(--yellow); text-shadow: 4px 4px 0 #3b0d4a; }
+  .bover p { margin: 0 auto 10px; font-size: 19px; line-height: 1.45; max-width: 48ch; }
+  .bover .keys { font: 9px/2 "Press Start 2P", monospace; color: var(--dim); }
+  .bover .score { font: 11px "Press Start 2P", monospace; color: var(--cyan); margin-top: 12px; }
+  .bover .row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+  .chip { display: inline-block; padding: 10px 12px; font: 9px "Press Start 2P", monospace; color: var(--screen); background: var(--cyan); border: 0; cursor: pointer; box-shadow: 4px 4px 0 var(--pink); }
+  .chip:hover, .chip:focus-visible { background: var(--yellow); outline: none; }
+  .bover .face { width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--yellow); box-shadow: 5px 5px 0 var(--pink); margin-bottom: 14px; }
+  .title-inner { display: grid; gap: 22px; justify-items: center; width: min(840px, 100%); }
+  .title-actions { display: grid; justify-items: center; gap: 6px; width: 100%; text-align: center; }
+  /* the main page is a column: bio, press start, then the papers pinned along the bottom */
+  .title:not(.gone) { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 4px 24px 8px; overflow: hidden; }
+  /* the papers row is pinned to the bottom; if the bio ever runs long, only the top part scrolls */
+  .title-inner { flex: 1; min-height: 0; overflow: auto; align-content: safe center; gap: 10px; scrollbar-width: none; }
+  .works { flex: none; }
+  .title-grid { grid-template-columns: 210px 1fr; gap: 34px; }
+  .title .face { width: 190px; height: 190px; }
+  .logo { font-size: clamp(28px, min(4.6vw, 5.4vh), 56px); line-height: 1.02; }
+  .tag { margin: 6px 0 6px; font-size: 9px; }
+  .bio { font-size: 15px; line-height: 1.4; margin-bottom: 6px; } .bio.small { font-size: 13.5px; }
+  .tlinks { margin: 8px 0 0; }
+  .start { font-size: clamp(12px, 1.4vw, 16px); }
+  .works { list-style: none; margin: 0; padding: 8px 0 0; width: 100%; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; border-top: 2px dashed rgba(58,47,102,.9); }
+  .wcard { position: relative; display: block; width: 100%; padding: 0; text-align: left; cursor: pointer; background: #140e33; border: 3px solid var(--line); border-radius: 4px; overflow: hidden; color: var(--paper); }
+  .wcard img { display: block; width: 100%; aspect-ratio: 3 / 1; object-fit: cover; object-position: top; background: #fff; }
+  .wcard .meta { display: block; padding: 4px 6px 5px; }
+  .wcard .nm { display: block; font: 8px/1.4 "Press Start 2P", monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .wcard .vn { display: block; margin-top: 1px; font-size: 12px; line-height: 1.2; color: var(--dim); }
+  .wcard .no { position: absolute; z-index: 41; top: 4px; left: 4px; font: 7px "Press Start 2P", monospace; background: var(--yellow); color: var(--screen); padding: 3px 4px; }
+  .wcard:hover, .wcard:focus-visible { border-color: var(--cyan); outline: none; box-shadow: 0 0 0 2px var(--pink); }
+  .wcard.opened { border-color: var(--yellow); }
+  .title-actions .start { margin: 0; }
+  .tleft { display: grid; gap: 18px; justify-items: center; align-content: center; }
+  .tleft .hint2 { max-width: 200px; line-height: 1.9; }
+  .title-actions .hint2 { margin: 0; }
+  .start:focus-visible { outline: none; color: var(--yellow); }
+  /* PRESS START is always the yellow version with the pink pointer */
+  .start, .start:focus-visible { display: inline-flex; align-items: center; gap: 10px; color: var(--yellow); outline: none; white-space: nowrap; }
+  .tleft .start { font-size: 15px; }
+  .start::before { content: ""; border-style: solid; border-width: 6px 0 6px 9px; border-color: transparent transparent transparent var(--pink); }
+  .title .alt { display: block; margin-top: 4px; background: none; border: 0; padding: 0; cursor: pointer; font: 9px "Press Start 2P", monospace; color: var(--pink); text-decoration: underline; text-underline-offset: 4px; }
+  .title .alt:hover, .title .alt:focus-visible { color: var(--yellow); outline: none; }
+  .title #tportrait { padding-top: 0; }
+  @media (max-width: 760px) {
+    .cab { padding: 0; border-width: 0; border-radius: 0; }
+    .marquee { margin: 6px 6px 0; }
+    .mid { margin-top: 8px; grid-template-columns: 1fr; }
+    .bezel { padding: 8px; }
+    .deck { margin: 8px 0 0; padding: 12px 14px 22px; }
+    .coindoor { flex-direction: column; gap: 6px; padding: 6px; }
+
+  }
+  /* shorter laptop screens: tighten the main page so the papers row stays in view */
+  @media (min-width: 761px) and (max-height: 860px) {
+    .logo { font-size: clamp(26px, min(4.2vw, 4.6vh), 48px); }
+    .title-grid { grid-template-columns: 180px 1fr; }
+    .title .face { width: 170px; height: 170px; }
+    .bio { font-size: 14px; } .bio.small { font-size: 12.5px; line-height: 1.35; }
+    .tlinks a { padding: 6px 8px; }
+  }
+  /* phones: the menu is one swipeable row so the screen layout never jumps */
+  @media (max-width: 760px) {
+    html, body { overscroll-behavior: none; }
+    .menu { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; max-width: 100%; }
+    .menu button { flex: none; }
+  }
+  /* phones held sideways: shrink the cabinet chrome so the game screen gets the height */
+  @media (max-height: 520px) and (orientation: landscape) {
+    body .cab { padding: 0 14px; border-top-width: 0; border-radius: 0; grid-template-rows: 1fr auto; }
+    .marquee { display: none; }
+    .mid { margin-top: 4px; grid-template-columns: 22px 1fr 22px; } .bezel { padding: 5px; }
+    .topline { padding: 5px 10px; font-size: 7px; line-height: 1.5; gap: 8px; }
+    .scores { gap: 12px; }
+    .menu { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } .menu button { flex: none; font-size: 7px; padding: 4px 6px; }
+    .cab .deck { margin: 4px -14px 0; padding: 4px 24px 8px; }
+    .stick { width: 54px; height: 54px; } .stick .ball { width: 28px; height: 28px; margin-left: -14px; top: -10px; }
+    .bt { font-size: 7px; gap: 4px; } .bt i { width: 34px; height: 34px; } .bt.small i { width: 28px; height: 14px; }
+    .coindoor { flex-direction: row; padding: 4px 8px; } .coin span.slot { width: 22px; height: 28px; } .snd { padding: 4px 6px; font-size: 7px; }
+    .legend { display: none; }
+    .cab .mode-toggle { top: auto; bottom: 12px; right: auto; left: 96px; padding: 4px 8px; font-size: 7px; }
+    .title-grid { grid-template-columns: 150px 1fr; gap: 22px; } .title .face { width: 110px; height: 110px; } .tleft .start { font-size: 10px; }
+    /* main page scrolls as one column instead of squeezing the papers row over the bio */
+    .title:not(.gone) { overflow: auto; } .title-inner { flex: none; overflow: visible; }
+    .tleft { gap: 10px; } .tleft .hint2 { display: none; }
+  }
+  /* phones: one column, papers in a 3 x 2 grid at the bottom */
+  @media (max-width: 760px) {
+    .title:not(.gone) { padding: 6px 14px 10px; overflow: auto; }
+    .title-inner { flex: none; overflow: visible; }
+    /* phone order: photo, name and bio, then press start, then the papers */
+    .tleft { display: contents; }
+    #tportrait { order: 0; } .title-grid > div:not(.tleft) { order: 1; } .title-actions { order: 2; justify-self: stretch; }
+    .tleft .hint2 { max-width: none; }
+    .cab::before { display: none; }
+    .title-grid { grid-template-columns: 1fr; gap: 12px; justify-items: start; }
+    .title .face { width: 96px; height: 96px; }
+    .logo { font-size: 30px; }
+    .works { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .title-actions .hint2 { font-size: 7px; }
+  }
+  .modebar { display: none; }
+  /* "Arcade mode" toggle, mounted on the top-right corner of the cabinet (above it on phones) */
+  .mode-toggle { position: absolute; top: 24px; right: 40px; z-index: 5; display: inline-flex; align-items: center; gap: 10px; padding: 7px 10px 7px 12px; border-radius: 6px; text-decoration: none;
+    font: 8px "Press Start 2P", monospace; color: #e9e4ff; background: var(--brushed), linear-gradient(180deg, #5d5872, #34304a); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 2px 0 #0c0816; }
+  .mode-toggle .track { position: relative; width: 34px; height: 18px; border-radius: 9px; background: var(--pink); box-shadow: inset 0 2px 3px rgba(0,0,0,.45), 0 0 8px rgba(255,61,127,.6); }
+  .mode-toggle .track::after { content: ""; position: absolute; top: 2px; left: 18px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #c9c4dd); transition: left .15s; }
+  .mode-toggle:hover .track::after, .mode-toggle:focus-visible .track::after { left: 8px; }
+  .mode-toggle:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+  .mode-toggle .state { color: var(--yellow); }
+  .cab { position: relative; }
+  @media (max-width: 760px) {
+    .modebar { height: 34px; display: flex; align-items: center; justify-content: flex-end; padding: 0 8px; }
+    .mode-toggle { position: static; padding: 5px 8px; font-size: 7px; }
+    .cab { height: calc(100% - 34px) !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee h1, .blink, .coin span.slot::before { animation: none; }
+    .wipe { display: none; }
+  }
+</style>
+</head>
+<body>
+<nav class="modebar" aria-label="Site version"></nav>
+<div class="cab">
+  <a class="mode-toggle" href="{{ '/' | relative_url }}" role="switch" aria-checked="true" aria-label="Arcade mode is on. Switch to the regular site.">ARCADE MODE <span class="track" aria-hidden="true"></span><span class="state" aria-hidden="true">ON</span></a>
+  <header class="marquee">
+    <h1>Aviad Dahan</h1>
+    <p>Generative AI researcher. Audio-video personalization &amp; generation.</p>
+  </header>
+  <div class="mid">
+    <div class="side l" aria-hidden="true"></div>
+    <div class="bezel">
+      <main class="screen intitle" id="screen">
+        <canvas id="stars" aria-hidden="true"></canvas>
+        <div class="topline">
+          <div class="scores" aria-hidden="true"><div><b>SCORE</b><span id="score">000000</span></div><div><b>HI-SCORE</b><span id="hi">000000</span></div><div><b>PAPERS</b><span id="count">0 / 6</span></div><div><b>CREDIT</b><span id="credit">0</span></div></div>
+          <nav class="menu" aria-label="Sections"><button data-open="main" class="mainmenu">MAIN MENU</button><button data-open="about">ABOUT</button><button data-open="talks">TALKS</button><button data-open="coop">LEADERBOARD</button><button data-open="contact">CONTACT</button></nav>
+        </div>
+        <section class="field" id="field" aria-label="Papers, talks and blogs. Select one to open it, or fly the ship and shoot it.">
+          <canvas id="fx" aria-hidden="true"></canvas>
+          <div class="targets" id="targets"></div>
+          <p class="hint" id="hint"><kbd>← →</kbd> MOVE &nbsp; <kbd>SPACE</kbd> FIRE &nbsp; SHOOT A PAPER TO OPEN IT, OR JUST CLICK IT</p>
+          <div class="toast" id="toast" aria-live="polite"></div>
+        </section>
+        <section class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Details"></section>
+        <section class="title" id="title" aria-label="Title screen">
+          <div class="title-inner">
+          <div class="title-grid">
+            <div class="tleft"><div id="tportrait"></div>
+              <div class="title-actions">
+                <button class="start blink" id="startBtn">PRESS START</button>
+                <p class="hint2">TO PLAY PAPER DEFENDER AND PROTECT THE PAPERS BELOW</p>
+              </div>
+            </div>
+            <div>
+              <h2 class="logo">AVIAD<br>DAHAN</h2>
+              <p class="tag">GENERATIVE AI RESEARCHER</p>
+              <p class="bio" id="tbio1"></p>
+              <p class="bio small" id="tbio2"></p>
+              <ul class="tlinks" id="tlinks" aria-label="Contact"></ul>
+            </div>
+          </div>
+          </div>
+          <ul class="works" id="works" aria-label="Papers"></ul>
+        </section>
+        <section class="bonus" id="bonus" aria-label="Bonus stage">
+          <canvas id="bcv" aria-label="Paper Defender. Move left and right and fire at the swarm before it reaches the papers."></canvas>
+          <div class="bover" id="bover"></div>
+        </section>
+        <div class="wipe" id="wipe" aria-hidden="true"></div>
+        <div class="glass" aria-hidden="true"></div>
+      </main>
+    </div>
+    <div class="side r" aria-hidden="true"></div>
+  </div>
+  <div class="deck" aria-label="Arcade controls">
+    <div class="stick" aria-label="Joystick">
+      <div class="gate"></div>
+      <div class="shaft" id="shaft"><div class="ball"></div></div>
+      <button data-k="left" aria-label="Move left"></button><button data-k="right" aria-label="Move right"></button>
+    </div>
+    <div class="btns">
+      <button class="bt small" data-k="start" style="--c:#f4f0ff"><i></i>START</button>
+      <button class="bt" data-k="b" style="--c:#3ee8ff"><i></i>B BACK</button>
+      <button class="bt" data-k="a" style="--c:#ff3d7f"><i></i>A FIRE</button>
+    </div>
+    <div class="slots coindoor">
+      <button class="coin" data-k="coin" aria-label="Insert coin: one credit is one extra life in Paper Defender"><span class="slot"></span>COIN</button>
+      <button class="snd" id="snd" aria-pressed="false">SOUND</button>
+    </div>
+    <div class="legend">ENTER START &nbsp; ARROWS MOVE &nbsp; SPACE FIRE &nbsp; X TRIPLE SHOT &nbsp; ESC BACK &nbsp; C INSERT COIN</div>
+  </div>
+</div>
+
+<script>
+/* ============ shared site data (from _pages/about.md, _config.yml, _data/companies.yml) ============ */
+const SITE = {
+  name: "Aviad Dahan",
+  position: "Generative AI Researcher, Audio-Video Personalization & Generation",
+  affiliation: "PhD Candidate, School of Electrical Engineering, Tel Aviv University",
+  photo: "/assets/img/profile.jpg",
+  advisors: [
+    { name: "Prof. Raja Giryes", url: "https://www.giryes.sites.tau.ac.il/" },
+    { name: "Prof. Lior Wolf", url: "https://www.cs.tau.ac.il/~wolf/" }
+  ],
+  bio: [
+    "I am a Generative AI researcher focused on audio-video personalization and generation, and a PhD candidate in the School of Electrical Engineering at Tel Aviv University.",
+    "I work on generative AI for multimodal audio-video generation and editing, building models that can preserve identity, steer motion, and reshape visual stories.",
+    "My research spans personalized audiovisual generation, temporally coherent video models, and image editing. I am also interested in adapting foundation models to high-stakes visual domains, including medical image segmentation."
+  ],
+  email: "aviaddahan@mail.tau.ac.il",
+  social: [
+    { label: "Email", url: "mailto:aviaddahan@mail.tau.ac.il", handle: "aviaddahan@mail.tau.ac.il" },
+    { label: "Google Scholar", url: "https://scholar.google.com/citations?user=6OxJ6hIAAAAJ", handle: "scholar/6OxJ6hIAAAAJ" },
+    { label: "GitHub", url: "https://github.com/aviaddahan", handle: "github.com/aviaddahan" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/aviadd", handle: "linkedin.com/in/aviadd" },
+    { label: "X", url: "https://x.com/AviadDahan", handle: "x.com/AviadDahan" }
+  ],
+  pubs: [
+    { id: "sepgen", short: "SepGen", year: 2026, venueShort: "arXiv",
+      title: "SepGen: Multi-Stem Audio-Video Separation and Generation in a Single Model",
+      authors: ["Aviad Dahan", "Rajaei Khatib", "Yonatan Bitton", "Idan Szpektor", "Lior Wolf", "Raja Giryes"],
+      venue: "arXiv preprint, 2026", img: "/assets/img/publications/sepgen.png",
+      links: [["Project & demos","https://sepgen.github.io/"],["arXiv","https://arxiv.org/abs/2610.11361"],["Code","https://github.com/AviadDahan/SepGen"],["Models","https://huggingface.co/collections/AviadDahan/sepgen-6ac3e516dd6528007ad32352"],["Dataset","https://huggingface.co/datasets/AviadDahan/SepGen-Dataset"]] },
+    { id: "idlora", short: "ID-LoRA", year: 2026, venueShort: "ECCV",
+      title: "ID-LoRA: Identity-Driven Audio-Video Personalization with In-Context LoRA",
+      authors: ["Aviad Dahan*", "Moran Yanuka*", "Noa Kraicer", "Lior Wolf", "Raja Giryes"],
+      venue: "European Conference on Computer Vision (ECCV), 2026", img: "/assets/img/publications/idlora.png",
+      links: [["Project","https://id-lora.github.io/"],["arXiv","https://arxiv.org/abs/2603.10256"],["Code","https://github.com/id-lora/id-lora"]] },
+    { id: "mff", short: "MFF", year: 2026, venueShort: "OJSP",
+      title: "Consistent Zero-Shot Video Editing with Multimodal Feature Flow",
+      authors: ["Aviad Dahan", "Eyal Gomel", "Lior Wolf", "Raja Giryes"],
+      venue: "IEEE Open Journal of Signal Processing, 2026 · Oral at ICIP 2026", img: "/assets/img/publications/mff.png",
+      links: [["Paper","https://ieeexplore.ieee.org/document/11509357"],["DOI","https://doi.org/10.1109/ojsp.2026.3691029"],["ResearchGate","https://www.researchgate.net/publication/404571944_Consistent_Zero-Shot_Video_Editing_with_Multimodal_Feature_Flow"]] },
+    { id: "liteattention", short: "LiteAttention", year: 2025, venueShort: "arXiv",
+      title: "LiteAttention: A Temporal Sparse Attention for Diffusion Transformers",
+      authors: ["Dor Shmilovich", "Tony Wu", "Aviad Dahan", "Yuval Domb"],
+      venue: "arXiv preprint, 2025", img: "/assets/img/publications/liteattention.png",
+      links: [["Project","https://moonmath-ai.github.io/LiteAttention/"],["arXiv","https://arxiv.org/abs/2511.11062"],["Code","https://github.com/moonmath-ai/LiteAttention"]] },
+    { id: "vps", short: "VPS", year: 2024, venueShort: "MIDL",
+      title: "Video Polyp Segmentation using Implicit Networks",
+      authors: ["Aviad Dahan", "Tal Shaharabany", "Raja Giryes", "Lior Wolf"],
+      venue: "Medical Imaging with Deep Learning (MIDL), 2024", img: "/assets/img/publications/vps.png",
+      links: [["Paper","https://proceedings.mlr.press/v250/dahan24c.html"],["Code","https://github.com/AviadDahan/VPS-implicit"]] },
+    { id: "autosam", short: "AutoSAM", year: 2023, venueShort: "BMVC",
+      title: "AutoSAM: Adapting SAM to Medical Images by Overloading the Prompt Encoder",
+      authors: ["Tal Shaharabany", "Aviad Dahan", "Raja Giryes", "Lior Wolf"],
+      venue: "British Machine Vision Conference (BMVC), 2023", img: "/assets/img/publications/autosam.png",
+      links: [["arXiv","https://arxiv.org/abs/2306.06370"],["Code","https://github.com/talshaharabany/AutoSAM"]] }
+  ],
+  talks: [
+    { date: "Jun 2026", kind: "Talk", title: "Multimodal Generative Agents at Scale", where: "Generative Media TLV (2nd edition), Tel Aviv", url: "https://luma.com/6yzlw3or" },
+    { date: "Sep 2024", kind: "Blog post", title: "Solving Reproducibility Challenges in Deep Learning and LLMs: Our Journey", where: "Ingonyama", url: "https://www.ingonyama.com/oldblogs/solving-reproducibility-challenges-in-deep-learning-and-llms-our-journey" },
+    { date: "Sep 2024", kind: "Talk", title: "Tipping the Scale: AI's Impact on War-Time Search & Rescue", where: "Atidim alumni appreciation evening, Tel Aviv" }
+  ],
+  orgs: [
+    { name: "ZyG", url: "https://www.zyg.one/", logo: "/assets/img/companies/zyg.svg" },
+    { name: "Now You Know", url: "https://www.nowyouknow.io/", logo: "/assets/img/companies/nowyouknow.svg", dark: true },
+    { name: "Ingonyama", url: "https://www.ingonyama.com/", logo: "/assets/img/companies/ingonyama.png" },
+    { name: "MoonMath.ai", url: "https://moonmath.ai/", logo: "/assets/img/companies/moonmath.svg" },
+    { name: "SpotitEarly", url: "https://www.spotitearly.com/", logo: "/assets/img/companies/spotitearly.svg" },
+    { name: "Tel Aviv University", url: "https://english.tau.ac.il/", logo: "/assets/img/companies/tel-aviv-university.png" },
+    { name: "Technion", url: "https://www.technion.ac.il/en/", logo: "/assets/img/companies/technion.png", dark: true },
+    { name: "Panjaya", url: "https://www.panjaya.ai/", logo: "/assets/img/companies/panjaya.svg" },
+    { name: "Innoviz", url: "https://innoviz.tech/", logo: "/assets/img/companies/innoviz.jpg" }
+  ]
+};
+/* ================================================================================================ */
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const ext = (label, url) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`;
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const pad6 = n => String(Math.max(0, Math.floor(n))).padStart(6, "0");
+const HITS = 3; // shots needed to open a paper the first time
+
+/* ---------------- sound, off until switched on ---------------- */
+let soundOn = false, actx;
+function tone(f, d = .08, type = "square", v = .04, when = 0, slide = 0) {
+  if (!soundOn) return;
+  actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+  const t = actx.currentTime + when, o = actx.createOscillator(), g = actx.createGain();
+  o.type = type; o.frequency.setValueAtTime(f, t); if (slide) o.frequency.exponentialRampToValueAtTime(slide, t + d);
+  g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+  o.connect(g).connect(actx.destination); o.start(t); o.stop(t + d + .02);
+}
+const SFX = {
+  pew: () => tone(1300, .06, "square", .012, 0, 520),
+  hit: () => tone(240, .07, "triangle", .05, 0, 120),
+  open: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, .09, "square", .035, i * .06)),
+  back: () => tone(392, .09, "square", .03, 0, 196),
+  coin: () => { tone(988, .07); tone(1319, .22, "square", .04, .07); },
+  all: () => [523, 659, 784, 1047, 1319, 1568].forEach((f, i) => tone(f, .14, "square", .04, i * .09)),
+  miss: () => tone(160, .3, "sawtooth", .05, 0, 50),
+  win: () => [523, 659, 784, 1047, 784, 1047, 1319, 1568].forEach((f, i) => tone(f, .16, "square", .045, i * .1))
+};
+/* background music: two original chiptune loops, only while sound is on */
+const TRACKS = {
+  calm: { spb: .2, hat: false,
+    mel:  [69,null,72,76, 74,72,69,null, 67,null,69,72, 71,null,67,null, 69,null,72,76, 79,77,76,74, 72,74,76,72, 69,null,null,null],
+    bass: [45,null,57,null, 45,null,57,null, 43,null,55,null, 43,null,55,null, 41,null,53,null, 41,null,53,null, 40,null,52,null, 40,null,52,null] },
+  bonus: { spb: .135, hat: true,
+    mel:  [81,79,76,79, 81,null,84,null, 83,81,79,76, 79,null,null,null, 76,74,72,74, 76,null,79,null, 77,76,74,71, 72,null,74,null],
+    bass: [45,45,57,45, 45,45,57,45, 43,43,55,43, 43,43,55,43, 41,41,53,41, 41,41,53,41, 40,40,52,40, 44,44,56,44] },
+  boss: { spb: .12, hat: true,
+    mel:  [76,null,75,76, 79,null,76,null, 74,null,72,74, 71,null,68,null, 76,null,75,76, 81,null,79,77, 76,74,72,71, 69,null,68,null],
+    bass: [40,40,52,40, 40,40,52,40, 38,38,50,38, 44,44,56,44, 40,40,52,40, 41,41,53,41, 45,45,57,45, 44,44,56,44] }
+};
+const midi = n => 440 * Math.pow(2, (n - 69) / 12);
+let wantTrack = "calm", musicTimer = null, playing = null, hatBuf = null;
+function hat(when) {
+  if (!hatBuf) { hatBuf = actx.createBuffer(1, actx.sampleRate * .04, actx.sampleRate); const d = hatBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length); }
+  const src = actx.createBufferSource(), g = actx.createGain(), f = actx.createBiquadFilter(); f.type = "highpass"; f.frequency.value = 6000;
+  g.gain.value = .025; src.buffer = hatBuf; src.connect(f).connect(g).connect(actx.destination); src.start(actx.currentTime + when);
+}
+function setTrack(name) { wantTrack = name; if (soundOn && playing !== name) startMusic(); }
+function startMusic() {
+  stopMusic(); if (!soundOn) return;
+  actx = actx || new (window.AudioContext || window.webkitAudioContext)(); actx.resume();
+  const tr = TRACKS[wantTrack]; playing = wantTrack; let step = 0, next = actx.currentTime + .05;
+  musicTimer = setInterval(() => {
+    while (next < actx.currentTime + .25) {
+      const w = next - actx.currentTime, m = tr.mel[step % 32], b = tr.bass[step % 32];
+      if (m) tone(midi(m), tr.spb * 1.5, "square", .016, w);
+      if (b) tone(midi(b), tr.spb * 1.7, "triangle", .05, w);
+      if (tr.hat && step % 2 === 1) hat(w);
+      step++; next += tr.spb;
+    }
+  }, 50);
+}
+function stopMusic() { clearInterval(musicTimer); musicTimer = null; playing = null; }
+$("#snd").addEventListener("click", e => {
+  soundOn = !soundOn; e.currentTarget.setAttribute("aria-pressed", soundOn); e.currentTarget.textContent = soundOn ? "SOUND ON" : "SOUND";
+  if (soundOn) { SFX.coin(); startMusic(); } else stopMusic();
+});
+
+/* ---------------- images, drawn as chunky pixels ---------------- */
+const imgCache = {};
+function loadImg(src) { return imgCache[src] || (imgCache[src] = new Promise(res => { const i = new Image(); i.onload = () => res(i); i.onerror = () => res(null); i.src = src; })); }
+function pixelCanvas(src, w, h, { res = 1, contain = false, reveal = false } = {}) {
+  const cv = document.createElement("canvas"); cv.width = w; cv.height = h;
+  const g = cv.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, w, h);
+  loadImg(src).then(img => {
+    if (!img) return;
+    const draw = r => {
+      const s = (contain ? Math.min : Math.max)(w / img.naturalWidth, h / img.naturalHeight);
+      const dw = img.naturalWidth * s, dh = img.naturalHeight * s;
+      const tmp = document.createElement("canvas"); tmp.width = Math.max(1, Math.round(w / r)); tmp.height = Math.max(1, Math.round(h / r));
+      const tg = tmp.getContext("2d"); tg.fillStyle = "#fff"; tg.fillRect(0, 0, tmp.width, tmp.height);
+      tg.drawImage(img, (w - dw) / 2 / r, (h - dh) / 2 / r, dw / r, dh / r);
+      g.imageSmoothingEnabled = false; g.drawImage(tmp, 0, 0, w, h);
+    };
+    if (reduced || !reveal) { draw(res); return; }
+    const steps = [16, 8, 4, 2, res]; let k = 0;
+    const iv = setInterval(() => { draw(steps[k++]); if (k >= steps.length) clearInterval(iv); }, 45);
+  });
+  return cv;
+}
+
+/* ---------------- state ---------------- */
+const field = $("#field"), fx = $("#fx"), ctx = fx.getContext("2d"), panel = $("#panel");
+// every work on the field: the six papers, then the talks and blogs
+const NP = SITE.pubs.length, WORKS = NP + SITE.talks.length;
+let score = 0, hi = 0, opened = new Set(), hits = Array(WORKS).fill(0), credits = 0, allDone = false;
+try { hi = +localStorage.getItem("arcade-hi") || 0; opened = new Set(JSON.parse(localStorage.getItem("arcade-opened") || "[]")); } catch (e) {}
+const ship = { x: 0, y: 0, vx: 0 }, shots = [], sparks = [], held = new Set();
+let fireCd = 0, W = 0, H = 0, targets = [], paused = true, firedOnce = false, inTitle = true;
+
+function updateTop() {
+  $("#score").textContent = pad6(score); $("#hi").textContent = pad6(Math.max(hi, score));
+  $("#count").textContent = `${[...opened].filter(i => i < NP).length} / ${NP}`;
+}
+function save() { try { localStorage.setItem("arcade-opened", JSON.stringify([...opened])); if (score > hi) { hi = score; localStorage.setItem("arcade-hi", hi); } } catch (e) {} }
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 1400); }
+
+/* ---------------- build the targets: one per paper ---------------- */
+function buildTargets() {
+  const box = $("#targets"); box.innerHTML = "";
+  const pips = i => `<span class="pips">${Array.from({ length: HITS }, (_, k) => `<i class="${opened.has(i) || k < hits[i] ? "on" : ""}"></i>`).join("")}</span>`;
+  targets = Array.from({ length: WORKS }, (_, i) => {
+    const b = document.createElement("button");
+    b.className = "target" + (i >= NP ? " talk" : "") + (opened.has(i) ? " opened" : "");
+    if (i < NP) {
+      const p = SITE.pubs[i];
+      b.setAttribute("aria-label", `${p.title}. ${p.venue}. Open details.`);
+      b.innerHTML = `<span class="no">${i + 1}</span>${pips(i)}<span class="meta"><span class="nm">${esc(p.short.toUpperCase())}</span><span class="vn">${esc(p.venueShort)} ${p.year}</span></span>`;
+    } else {
+      const t = SITE.talks[i - NP];
+      b.setAttribute("aria-label", `${t.kind}: ${t.title}. ${t.where}, ${t.date}. Open details.`);
+      b.innerHTML = `<span class="kind">${esc(t.kind.toUpperCase())}</span>${pips(i)}<span class="tt">${esc(t.title)}</span><span class="vn">${esc(t.date)}</span>`;
+    }
+    b.addEventListener("click", () => openPaper(i));
+    box.appendChild(b);
+    return { i, el: b, x: 0, y: 0, w: 0, h: 0, ox: 0, oy: 0 };
+  });
+  layout();
+}
+function layout() {
+  const r = field.getBoundingClientRect(); W = r.width; H = r.height;
+  fx.width = Math.round(W); fx.height = Math.round(H);
+  // papers on top (one row on wide screens, two rows of three on narrow ones), talks and blogs in a row in front of them
+  const wide = W >= 700, cols = wide ? 6 : 3, rows = wide ? 1 : 2, gap = wide ? 14 : 10, side = wide ? 24 : 12;
+  const cw = Math.min(wide ? 170 : 230, (W - side * 2 - gap * (cols - 1)) / cols);
+  const thumbH = Math.round(cw * (wide ? .6 : .5)), metaH = wide ? 50 : 40, ch = thumbH + metaH;
+  const totalW = cw * cols + gap * (cols - 1), x0 = (W - totalW) / 2, y0 = wide ? Math.max(10, (H - 34) * .06) : 6;
+  const nt = WORKS - NP, tw = Math.min(wide ? 250 : 200, (totalW - gap * (nt - 1)) / nt), th = wide ? 74 : 66;
+  const tx0 = (W - (tw * nt + gap * (nt - 1))) / 2, ty = y0 + rows * (ch + gap) + (wide ? 8 : 4);
+  targets.forEach((t, k) => {
+    if (k < NP) {
+      const c = k % cols, rr = Math.floor(k / cols);
+      t.x = x0 + c * (cw + gap); t.y = y0 + rr * (ch + gap); t.w = cw; t.h = ch;
+      const old = t.el.querySelector("canvas"); if (old) old.remove();
+      const cv = pixelCanvas(SITE.pubs[t.i].img, Math.round(cw), thumbH);
+      cv.setAttribute("aria-hidden", "true"); cv.style.height = thumbH + "px";
+      t.el.insertBefore(cv, t.el.firstChild);
+    } else { t.x = tx0 + (k - NP) * (tw + gap); t.y = ty; t.w = tw; t.h = th; }
+    t.el.style.width = t.w + "px"; t.el.style.height = t.h + "px";
+  });
+  const fieldBottom = ty + th + gap;
+  ship.y = H - 34; if (!ship.x) ship.x = W / 2; ship.x = Math.min(Math.max(ship.x, 16), W - 16);
+  const hint = $("#hint"); hint.style.top = Math.min(H - 80, fieldBottom + (H - 34 - fieldBottom) / 2 - 14) + "px";
+}
+
+/* ---------------- the loop ---------------- */
+function step(dt, t) {
+  // gentle drift so the papers feel alive without marching
+  targets.forEach((tg, k) => {
+    tg.ox = reduced ? 0 : Math.sin(t / 1600 + k * 1.3) * 8; tg.oy = reduced ? 0 : Math.cos(t / 2100 + k) * 3;
+    tg.el.style.transform = `translate(${tg.x + tg.ox}px, ${tg.y + tg.oy}px)`;
+  });
+  if (paused) return;
+  const speed = Math.max(260, W * .55);
+  const dir = (held.has("right") ? 1 : 0) - (held.has("left") ? 1 : 0);
+  if (!drag.on) ship.x = Math.min(W - 16, Math.max(16, ship.x + dir * speed * dt));
+  fireCd -= dt;
+  if ((held.has("a") || drag.on) && fireCd <= 0) fire();
+  shots.forEach(s => { s.y -= 560 * dt; s.x += s.vx * dt; });
+  for (const s of shots) {
+    if (s.dead) continue;
+    for (const tg of targets) {
+      const x = tg.x + tg.ox, y = tg.y + tg.oy;
+      if (!(s.x > x && s.x < x + tg.w && s.y > y && s.y < y + tg.h)) continue;
+      // an opened paper in the front row lets shots through to an unopened one behind it
+      const behind = opened.has(tg.i) && targets.some(o => o !== tg && !opened.has(o.i) && o.y < tg.y && s.x > o.x + o.ox && s.x < o.x + o.ox + o.w);
+      if (behind) continue;
+      s.dead = true; hitTarget(tg, s.x, s.y); break;
+    }
+  }
+  for (let k = shots.length - 1; k >= 0; k--) if (shots[k].dead || shots[k].y < -10) shots.splice(k, 1);
+  sparks.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.life -= dt; });
+  for (let k = sparks.length - 1; k >= 0; k--) if (sparks[k].life <= 0) sparks.splice(k, 1);
+}
+function fire() {
+  fireCd = .2; SFX.pew();
+  if (!firedOnce) { firedOnce = true; $("#hint").classList.add("gone"); }
+  shots.push({ x: ship.x, y: ship.y - 12, vx: 0 });
+}
+function hitTarget(tg, x, y) {
+  const i = tg.i;
+  for (let k = 0; k < 8; k++) sparks.push({ x, y, vx: (Math.random() - .5) * 160, vy: (Math.random() - .2) * 140, life: .35 });
+  score += 10;
+  if (opened.has(i)) { openPaper(i); return; }
+  hits[i]++; SFX.hit();
+  tg.el.querySelectorAll(".pips i").forEach((p, k) => p.classList.toggle("on", k < hits[i]));
+  tg.el.classList.add("hit"); setTimeout(() => tg.el.classList.remove("hit"), 120);
+  if (hits[i] >= HITS) { score += 100; openPaper(i); }
+  updateTop();
+}
+// ship: an original little craft, drawn in 2px pixels
+function drawShip(c, sx, sy, flame) {
+  const x = Math.round(sx / 2) * 2, y = Math.round(sy / 2) * 2, P = (dx, dy, w, h, col) => { c.fillStyle = col; c.fillRect(x + dx * 2, y + dy * 2, w * 2, h * 2); };
+  P(-1, -6, 2, 3, "#3ee8ff"); P(-2, -3, 4, 3, "#3ee8ff"); P(-6, 0, 12, 3, "#3ee8ff"); P(-8, 3, 4, 3, "#3ee8ff"); P(4, 3, 4, 3, "#3ee8ff");
+  P(-1, -2, 2, 2, "#ff3d7f"); P(-3, 3, 6, 1, "#1b6f86");
+  if (flame && !reduced) { c.fillStyle = Math.random() > .5 ? "#ff8a1f" : "#ffe23e"; c.fillRect(x - 3, y + 12, 6, 2 + (Math.random() * 4 | 0)); }
+}
+function draw() {
+  ctx.clearRect(0, 0, fx.width, fx.height);
+  drawShip(ctx, ship.x, ship.y, !paused);
+  ctx.fillStyle = "#ffe23e"; shots.forEach(s => ctx.fillRect(Math.round(s.x) - 1, Math.round(s.y), 3, 9));
+  sparks.forEach(p => { ctx.fillStyle = p.life > .18 ? "#ffe23e" : "#ff8a1f"; ctx.fillRect(p.x | 0, p.y | 0, 3, 3); });
+}
+
+/* ---------------- starfield ---------------- */
+const stars = $("#stars"), sctx = stars.getContext("2d"); let starList = [];
+function sizeStars() { const r = stars.getBoundingClientRect(); stars.width = Math.max(1, r.width / 3 | 0); stars.height = Math.max(1, r.height / 3 | 0);
+  starList = Array.from({ length: 90 }, () => ({ x: Math.random() * stars.width, y: Math.random() * stars.height, z: Math.random() * .9 + .1 })); }
+function drawStars(dt) {
+  sctx.fillStyle = "#0b0722"; sctx.fillRect(0, 0, stars.width, stars.height);
+  for (const s of starList) { if (!reduced) s.y += s.z * (inTitle ? 10 : 26) * dt; if (s.y > stars.height) { s.y = 0; s.x = Math.random() * stars.width; }
+    sctx.fillStyle = s.z > .7 ? "#f4f0ff" : s.z > .4 ? "#8e86c0" : "#3a2f66"; sctx.fillRect(s.x | 0, s.y | 0, 1, 1); }
+}
+
+/* ---------------- panels ---------------- */
+const authorsHTML = a => a.map(n => n.startsWith("Aviad Dahan") ? `<b>${esc(n)}</b>` : esc(n)).join(", ");
+let current = null;
+function openPanel(html, kind, focusSel) {
+  $("#title").classList.add("gone"); $("#screen").classList.remove("intitle");
+  paused = true; held.clear(); drag.on = false; current = kind; shots.length = 0;
+  panel.innerHTML = html; panel.classList.add("open"); panel.scrollTop = 0;
+  const nav = panel.querySelector(".nav"); if (nav) panel.prepend(nav);
+  panel.querySelectorAll("[data-nav]").forEach(b => b.addEventListener("click", () => navTo(b.dataset.nav)));
+  (panel.querySelector(focusSel) || panel.querySelector("button, a"))?.focus({ preventScroll: true });
+}
+function closePanel() {
+  if (!panel.classList.contains("open")) return;
+  panel.classList.remove("open"); SFX.back();
+  const back = typeof current === "number" ? document.querySelector(`.wcard[data-i="${current}"]`) : null; current = null;
+  $("#title").classList.remove("gone"); $("#screen").classList.add("intitle"); inTitle = true; paused = true;
+  (back || $("#startBtn")).focus({ preventScroll: true });
+  if ([...opened].filter(i => i < NP).length === NP && !allDone) { allDone = true; score += 1000; updateTop(); save(); SFX.all(); setTimeout(() => openAbout(true), 350); }
+}
+function navTo(n) {
+  if (n === "back") closePanel();
+  if (n === "prev") openPaper(current - 1);
+  if (n === "next") openPaper(current + 1);
+}
+const navHTML = (i) => i === undefined ? "" : `<div class="nav"><span class="navhint">ESC OR MAIN MENU TO GO BACK</span><span>${i !== undefined && i > 0 ? `<button data-nav="prev" class="arrow-l">PREV</button>` : ""}${i !== undefined && i < NP - 1 ? ` &nbsp; <button data-nav="next" class="arrow-r">NEXT</button>` : ""}</span></div>`;
+function openPaper(i) {
+  if (i < 0 || i >= NP) return;
+  document.querySelector(`.wcard[data-i="${i}"]`)?.classList.add("opened");
+  const first = !opened.has(i); opened.add(i); hits[i] = HITS; save(); updateTop();
+  targets[i].el.classList.add("opened"); targets[i].el.querySelectorAll(".pips i").forEach(p => p.classList.add("on"));
+  SFX.open();
+  if (i >= NP) { if (first) toast(`${SITE.talks[i - NP].kind.toUpperCase()} OPENED`); return openTalk(i); }
+  if (first) toast(`PAPER ${i + 1} OPENED`);
+  const p = SITE.pubs[i];
+  openPanel(`<div class="stage"><div class="shot" id="shot"></div><div>
+      <p class="kicker">PAPER ${i + 1} OF ${SITE.pubs.length}</p>
+      <h2>${esc(p.title)}</h2><p class="who">${authorsHTML(p.authors)}</p><p class="venue">${esc(p.venue)}</p>
+      <div class="links">${p.links.map(([l, u]) => ext(l.toUpperCase(), u)).join("")}</div></div></div>${navHTML(i)}`, i, ".links a");
+  const fig = new Image(); fig.src = p.img; fig.alt = `Figure from ${p.short}`; fig.className = "sharp"; $("#shot").appendChild(fig);
+}
+function openAbout(cleared) {
+  openPanel(`${cleared ? `<p class="banner">ALL ${NP} PAPERS OPENED. +1000. PLAYER 1 REVEALED.</p>` : ""}
+    <div class="p1"><div id="pslot"></div><div>
+      <dl class="stats"><dt>PLAYER 1</dt><dd>${esc(SITE.name)}</dd><dt>CLASS</dt><dd>Generative AI Researcher</dd>
+      <dt>SPECIAL</dt><dd>Audio-video personalization &amp; generation</dd><dt>RANK</dt><dd>PhD Candidate</dd>
+      <dt>BASE</dt><dd>School of Electrical Engineering, Tel Aviv University</dd>
+      <dt>MENTORS</dt><dd>${SITE.advisors.map(a => ext(a.name, a.url)).join(" and ")}</dd></dl>
+      ${SITE.bio.slice(1).map(p => `<p>${esc(p)}</p>`).join("")}</div></div>${navHTML()}`, "about", ".stats a");
+  const cv = faceImg();
+  $("#pslot").appendChild(cv);
+}
+const RANK = n => n + (n % 10 === 1 && n !== 11 ? "ST" : n % 10 === 2 && n !== 12 ? "ND" : n % 10 === 3 && n !== 13 ? "RD" : "TH");
+function openCoop() {
+  openPanel(`<h2 class="h2">LEADERBOARD</h2><p class="lb-sub">PLACES I HAVE WORKED AND COLLABORATED WITH (CHRONOLOGICAL ORDER)</p>
+    <ol class="lb">${SITE.orgs.map((o, k) => `<li><span class="rk">${RANK(k + 1)}</span><span class="logo${o.dark ? " dark" : ""}"><img src="${o.logo}" alt="" loading="lazy"></span><a href="${esc(o.url)}" target="_blank" rel="noopener noreferrer">${esc(o.name.toUpperCase())}</a></li>`).join("")}</ol>${navHTML()}`, "coop", ".lb a");
+}
+function openTalk(i) {
+  const t = SITE.talks[i - NP];
+  openPanel(`<div class="stage talkpanel"><div><p class="kicker">${esc(t.kind.toUpperCase())} ${i - NP + 1} OF ${SITE.talks.length}</p>
+      <h2>${esc(t.title)}</h2><p class="who">${esc(t.where)}</p><p class="venue">${esc(t.date)}</p>
+      ${t.url ? `<div class="links">${ext(t.kind === "Talk" ? "EVENT PAGE" : "READ THE POST", t.url)}</div>` : ""}</div></div>${navHTML(i)}`, i, ".links a");
+}
+function openTalks() {
+  openPanel(`<h2 class="h2">TALKS &amp; BLOGS</h2><ol class="talks">${SITE.talks.map(t => `<li><span class="dt">${esc(t.date.toUpperCase())}</span><div>
+      <p class="tt">${t.url ? ext(t.title, t.url) : esc(t.title)}</p><p class="wh">${esc(t.kind)}, ${esc(t.where)}</p></div></li>`).join("")}</ol>${navHTML()}`, "talks", ".talks a");
+}
+function openContact() {
+  openPanel(`<div class="cont"><h2 class="h2">CONTACT</h2><ul>${SITE.social.map(s => `<li><span>${esc(s.label.toUpperCase())}</span>${ext(s.handle, s.url)}</li>`).join("")}</ul></div>${navHTML()}`, "contact", ".cont a");
+}
+document.querySelectorAll("[data-open]").forEach(b => b.addEventListener("click", () => { SFX.open(); if (inBonus && b.dataset.open !== "bonus") { inBonus = false; bonusEl.classList.remove("open"); $("#screen").classList.remove("inbonus"); Bn.state = "intro"; setTrack("calm"); document.querySelector('.bt[data-k="b"]').lastChild.textContent = "B BACK"; if (b.dataset.open === "main") { inTitle = true; paused = true; $("#title").classList.remove("gone"); $("#screen").classList.add("intitle"); return; } }
+  if (b.dataset.open === "main") { if (panel.classList.contains("open")) closePanel(); else if (!inTitle) toTitle(); return; }
+  ({ about: () => openAbout(false), talks: openTalks, coop: openCoop, contact: openContact, bonus: openBonus })[b.dataset.open](); }));
+
+/* ---------------- input ---------------- */
+const KEY = { Enter: "start", ArrowLeft: "left", ArrowRight: "right", a: "left", A: "left", d: "right", D: "right", " ": "a", z: "a", Z: "a", x: "b", X: "b", Escape: "esc", Backspace: "esc", c: "coin", C: "coin" };
+const CODE = { KeyA: "left", KeyD: "right", KeyZ: "a", KeyX: "b", KeyC: "coin", Space: "a" };
+const shaft = $("#shaft");
+function visual(k, on) {
+  if (k === "left" || k === "right") shaft.style.transform = on ? `rotate(${k === "left" ? -20 : 20}deg)` : "";
+  document.querySelector(`.bt[data-k="${k}"]`)?.classList.toggle("down", on);
+}
+function coin() { credits = Math.min(9, credits + 1); $("#credit").textContent = credits; SFX.coin(); if (!inBonus) toast("CREDIT +1"); else if (Bn.state === "over") showBonus("over"); }
+function press(k, on) {
+  visual(k, on);
+  if (!on) { held.delete(k); return; }
+  if (k === "coin") return coin();
+  if (inBonus) {
+    if (k === "b" && Bn.state === "play") { useTriple(); return; }
+    if (k === "esc" || k === "b") { if (Bn.state === "play") showBonus("paused"); else closeBonus(); return; }
+    if (k === "start") { if (Bn.state === "play") showBonus("paused"); else if (Bn.state === "paused") hideOver(); else if (Bn.state === "intro" || Bn.state === "won" || Bn.state === "over") bonusAction("play"); return; }
+    if (Bn.state === "play") held.add(k);
+    return;
+  }
+  if (panel.classList.contains("open")) {
+    if (k === "b" || k === "esc") return closePanel();
+    if (typeof current === "number" && k === "left") openPaper(current - 1);
+    if (typeof current === "number" && k === "right") openPaper(current + 1);
+    return;
+  }
+  if (inTitle) { if (k === "start") startGame(); return; }
+  if (k === "b" || k === "esc") return toTitle();
+  held.add(k);
+}
+addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = KEY[e.key] || CODE[e.code]; if (!k) return;
+  const el = document.activeElement, inPanel = panel.contains(el);
+  // keep Space working on links and buttons inside a panel and the menu
+  if ((e.key === " " || e.key === "Enter") && (inPanel || el?.closest?.(".menu, .deck, .title a, .title .alt, .bover"))) return;
+  if (e.key === "Enter" && el?.closest?.(".target")) return; // Enter opens a focused paper; Space still fires
+  if (e.key === "Backspace" && !panel.classList.contains("open")) return;
+  e.preventDefault();
+  if (e.repeat && (k === "b" || k === "esc" || k === "coin")) return;
+  press(k, true);
+});
+addEventListener("keyup", e => { const k = KEY[e.key] || CODE[e.code]; if (k) press(k, false); });
+addEventListener("blur", () => held.clear());
+document.querySelectorAll(".deck [data-k]").forEach(b => {
+  const k = b.dataset.k;
+  b.addEventListener("pointerdown", e => { e.preventDefault(); press(k, true); });
+  ["pointerup", "pointerleave", "pointercancel"].forEach(ev => b.addEventListener(ev, () => press(k, false)));
+  b.addEventListener("click", e => { if (e.detail === 0) { press(k, true); setTimeout(() => press(k, false), 150); } });
+});
+// drag anywhere on the open field to steer; the ship fires while you drag
+const drag = { on: false };
+fx.addEventListener("pointerdown", e => { if (paused) return; drag.on = true; fx.setPointerCapture(e.pointerId); steer(e); });
+fx.addEventListener("pointermove", e => { if (drag.on) steer(e); });
+["pointerup", "pointercancel"].forEach(ev => fx.addEventListener(ev, () => { drag.on = false; }));
+function steer(e) { const r = fx.getBoundingClientRect(); ship.x = Math.min(W - 16, Math.max(16, e.clientX - r.left)); }
+
+/* ---------------- title screen ---------------- */
+function wipe(fn) {
+  if (reduced) { fn(); return; }
+  const w = $("#wipe"); w.classList.remove("go"); void w.offsetWidth; w.classList.add("go");
+  setTimeout(fn, 190);
+}
+for (let i = 0; i < 16; i++) { const k = document.createElement("i"); k.style.setProperty("--k", i); $("#wipe").appendChild(k); }
+$("#tbio1").textContent = SITE.bio[0];
+$("#tbio2").innerHTML = `${esc(SITE.bio[1])} Advised by ${SITE.advisors.map(a => ext(a.name, a.url)).join(" and ")}.`;
+// the portrait is shown as the real photo, never pixelated
+function faceImg() { const im = new Image(); im.src = SITE.photo; im.alt = "Portrait of Aviad Dahan"; im.className = "face"; return im; }
+$("#tportrait").appendChild(faceImg());
+$("#tlinks").innerHTML = SITE.social.map(x => `<li>${ext(x.label.toUpperCase(), x.url)}</li>`).join("");
+// the papers live along the bottom of the main page (the same row Paper Defender asks you to protect)
+$("#works").innerHTML = SITE.pubs.map((p, i) => `<li><button class="wcard${opened.has(i) ? " opened" : ""}" data-i="${i}" aria-label="${esc(p.title)}. ${esc(p.venue)}. Open details.">
+  <img src="${p.img}" alt="" loading="lazy"><span class="no">${i + 1}</span><span class="meta"><span class="nm">${esc(p.short.toUpperCase())}</span><span class="vn">${esc(p.venueShort)} ${p.year}</span></span></button></li>`).join("");
+$("#works").querySelectorAll(".wcard").forEach(b => b.addEventListener("click", () => openPaper(+b.dataset.i)));
+function startGame() { SFX.all(); openBonus(true); }
+function toTitle() {
+  SFX.back(); held.clear(); shots.length = 0;
+  wipe(() => { inTitle = true; paused = true; panel.classList.remove("open"); $("#title").classList.remove("gone"); $("#screen").classList.add("intitle"); $("#startBtn").focus({ preventScroll: true }); });
+}
+$("#startBtn").addEventListener("click", startGame);
+
+/* ================= BONUS GAME: "Paper Defender" =================
+   The six papers sit along the bottom of the screen. A swarm of noise comes down in five waves,
+   diving at the papers and spraying static. Your ship flies just above the papers and shoots the swarm.
+   Each paper takes three hits before it is lost. Lose all six papers, or all your lives, and it's over.
+   Wave 5 is a boss. Every coin from the slot is an extra life or a continue. */
+const bonusEl = $("#bonus"), bcv = $("#bcv"), bctx = bcv.getContext("2d"), bover = $("#bover");
+let inBonus = false;
+const PAPER_HP = 3, TRIPLES = 3, TRIPLE_SECS = 3; // three triple shots per game, never refilled (not even by a continue)
+function useTriple() {
+  if (Bn.tripleT > 0) return;
+  if (Bn.triples <= 0) { toastBonus("NO TRIPLE SHOTS LEFT"); SFX.back(); return; }
+  Bn.triples--; Bn.tripleT = TRIPLE_SECS; toastBonus(`TRIPLE SHOT ON  ${Bn.triples} LEFT`); SFX.coin();
+}
+const Bn = { state: "intro", W: 0, H: 0, wave: 0, lives: 3, score: 0, enemies: [], eshots: [], pshots: [], sparks: [], boss: null, inv: 0, fireCd: 0,
+  ship: { x: 0, y: 0 }, killed: 0, total: 0, banner: 0, time: 0, drag: false, papers: [], imgs: [], py: 0, ph: 0 };
+SITE.pubs.forEach((p, i) => loadImg(p.img).then(im => { Bn.imgs[i] = im; }));
+const BLOB = ["..####..", ".######.", "########", "##.##.##", "########", "########", ".#.##.#.", "#.#..#.#"];
+const BLOB2 = ["..#..#..", "...##...", ".######.", "##.##.##", "########", ".######.", "..#..#..", ".#....#."];
+function sizeBonus() {
+  const r = bonusEl.getBoundingClientRect(); Bn.W = bcv.width = Math.round(r.width); Bn.H = bcv.height = Math.round(r.height);
+  const n = SITE.pubs.length, gap = Bn.W < 500 ? 6 : 12, side = Bn.W < 500 ? 8 : 24;
+  const w = Math.min(130, (Bn.W - side * 2 - gap * (n - 1)) / n), h = Math.round(Math.min(70, w * .62)) + 14;
+  const x0 = (Bn.W - (w * n + gap * (n - 1))) / 2;
+  Bn.ph = h; Bn.py = Bn.H - h - 26;
+  if (!Bn.papers.length) Bn.papers = SITE.pubs.map((p, i) => ({ i, hp: PAPER_HP, flash: 0 }));
+  Bn.papers.forEach((p, k) => { p.x = x0 + k * (w + gap); p.w = w; });
+  Bn.ship.y = Bn.py - 30; Bn.ship.x = Bn.ship.x || Bn.W / 2;
+}
+const alivePapers = () => Bn.papers.filter(p => p.hp > 0);
+function openBonus(autoplay) {
+  if (panel.classList.contains("open")) panel.classList.remove("open");
+  current = null; inTitle = false; paused = true; held.clear(); shots.length = 0;
+  wipe(() => {
+    $("#title").classList.add("gone"); $("#screen").classList.remove("intitle");
+    bonusEl.classList.add("open"); $("#screen").classList.add("inbonus"); inBonus = true; ctx.clearRect(0, 0, fx.width, fx.height);
+    document.querySelector('.bt[data-k="b"]').lastChild.textContent = "B TRIPLE";
+    sizeBonus(); setTrack("bonus"); if (autoplay) bonusAction("play"); else showBonus("intro");
+  });
+}
+function closeBonus() {
+  inBonus = false; Bn.state = "intro"; held.clear(); setTrack("calm"); SFX.back();
+  document.querySelector('.bt[data-k="b"]').lastChild.textContent = "B BACK";
+  // leaving the bonus game always returns to the main (title) page
+  wipe(() => { bonusEl.classList.remove("open"); $("#screen").classList.remove("inbonus"); inTitle = true; paused = true; panel.classList.remove("open"); $("#title").classList.remove("gone"); $("#screen").classList.add("intitle"); $("#startBtn").focus({ preventScroll: true }); });
+}
+function resetBonus() {
+  Object.assign(Bn, { wave: 0, lives: 3 + credits, score: 0, enemies: [], eshots: [], pshots: [], sparks: [], boss: null, inv: 1.5, fireCd: 0, time: 0, triples: TRIPLES, tripleT: 0, loop: 1 });
+  Bn.papers.forEach(p => { p.hp = PAPER_HP; p.flash = 0; });
+  credits = 0; $("#credit").textContent = 0; Bn.ship.x = Bn.W / 2;
+}
+function showBonus(kind) {
+  Bn.state = kind; bover.classList.remove("hide");
+  const row = btns => `<div class="row">${btns}</div>`, safe = alivePapers().length;
+  if (kind === "intro") bover.innerHTML = `<div><h2>PAPER DEFENDER</h2>
+    <p>A swarm of noise is coming for the six papers at the bottom of the screen. Fly above them and shoot the swarm down before it gets through. Each paper takes three hits. Every fifth wave is a boss; beat it and the next loop starts faster. It never ends, so there's no cap on the score.</p>
+    <p class="keys">← → MOVE &nbsp; SPACE FIRE &nbsp; X TRIPLE SHOT &nbsp; ENTER PAUSE &nbsp; ESC MAIN PAGE<br>ON A PHONE: DRAG TO FLY, THE SHIP FIRES WHILE YOU DRAG, B BUTTON FOR TRIPLE SHOT<br>3 TRIPLE SHOTS PER GAME: 3 SECONDS OF AUTO-FIRE, THREE BULLETS AT A TIME. EACH COIN IS AN EXTRA LIFE</p>
+    ${row(`<button class="chip" data-b="play">PLAY</button><button class="chip" data-b="quit">BACK TO MAIN PAGE</button>`)}</div>`;
+  if (kind === "paused") bover.innerHTML = `<div><h2>PAUSED</h2>${row(`<button class="chip" data-b="resume">RESUME</button><button class="chip" data-b="quit">BACK TO MAIN PAGE</button>`)}</div>`;
+  if (kind === "over") bover.innerHTML = `<div><h2>THE NOISE GOT THROUGH</h2><p>${safe ? `You were shot down on loop ${Bn.loop}, wave ${Bn.wave} of 5, with ${safe} of 6 papers still safe.` : `All six papers were lost on loop ${Bn.loop}, wave ${Bn.wave} of 5.`}</p><p class="score">SCORE ${pad6(Bn.score)}</p>
+    ${row(`${credits && safe ? `<button class="chip" data-b="continue">CONTINUE (1 CREDIT)</button>` : ""}<button class="chip" data-b="play">TRY AGAIN</button><button class="chip" data-b="quit">BACK TO MAIN PAGE</button>`)}
+    ${credits || !safe ? "" : `<p class="keys">INSERT A COIN TO CONTINUE FROM LOOP ${Bn.loop}, WAVE ${Bn.wave}</p>`}</div>`;
+  if (kind === "won") bover.innerHTML = `<div><img class="face" src="${SITE.photo}" alt="Portrait of Aviad Dahan"><h2>PAPERS DEFENDED</h2><p>All five waves cleared with ${safe} of 6 papers safe.</p><p class="score">SCORE ${pad6(Bn.score)}</p>
+    ${row(`<button class="chip" data-b="play">PLAY AGAIN</button><button class="chip" data-b="quit">BACK TO MAIN PAGE</button>`)}</div>`;
+  bover.querySelectorAll("[data-b]").forEach(b => b.addEventListener("click", () => bonusAction(b.dataset.b)));
+  bover.querySelector("[data-b]")?.focus({ preventScroll: true });
+}
+function bonusAction(a) {
+  if (a === "play") { resetBonus(); hideOver(); nextWave(); SFX.all(); setTrack("bonus"); }
+  if (a === "resume") hideOver();
+  if (a === "continue") { credits--; $("#credit").textContent = credits; Bn.lives = 3; Bn.inv = 2; Bn.eshots = []; hideOver(); SFX.coin(); setTrack(Bn.boss ? "boss" : "bonus"); }
+  if (a === "quit") closeBonus();
+}
+function hideOver() { bover.classList.add("hide"); bover.innerHTML = ""; Bn.state = "play"; document.activeElement?.blur(); }
+// endless: after the boss the next loop starts at wave 1, faster. Score has no cap.
+const speedUp = () => 1 + .22 * (Bn.loop - 1);
+function nextLoop() {
+  Bn.loop++; Bn.wave = 0;
+  Bn.papers.forEach(p => { if (p.hp > 0) p.hp = Math.min(PAPER_HP, p.hp + 1); }); // surviving papers get one hit back
+  toastBonus(`LOOP ${Bn.loop}: FASTER`); setTrack("bonus"); nextWave(); Bn.banner = 2.5;
+}
+function nextWave() {
+  Bn.wave++; Bn.banner = Bn.wave === 1 && Bn.loop === 1 ? 3.5 : 1.6; Bn.eshots = [];
+  if (Bn.wave === 5) { const hp = 70 + 25 * (Bn.loop - 1); Bn.boss = { x: Bn.W / 2, y: -80, ty: Math.min(100, Bn.py * .3), hp, max: hp, cd: 1.8, flash: 0 }; Bn.total = 1; Bn.killed = 0; setTrack("boss"); return; }
+  const n = 6 + Bn.wave * 3, cols = Math.min(8, Math.max(4, Math.floor(Bn.W / 70))), gapX = Math.min(64, (Bn.W - 60) / cols);
+  Bn.total = n; Bn.killed = 0;
+  for (let k = 0; k < n; k++) {
+    const c = k % cols, r = Math.floor(k / cols), tough = Bn.wave >= 3 && k % 4 === 0;
+    Bn.enemies.push({ bx: Bn.W / 2 - (cols - 1) * gapX / 2 + c * gapX, by: 40 + r * 36, x: Bn.W / 2, y: -30 - k * 22, hp: tough ? 3 : 1, tough, ph: Math.random() * 6, enter: 0, dive: null });
+  }
+}
+function damagePaper(p, x, y) {
+  if (!p || p.hp <= 0) return;
+  p.hp--; p.flash = .25; burst(x, y, p.hp ? "#ff8a1f" : "#ff3d7f", p.hp ? 10 : 24); SFX.miss();
+  if (p.hp <= 0) { Bn.banner = 0; toastBonus(`${SITE.pubs[p.i].short.toUpperCase()} LOST`); }
+}
+let bToast = { text: "", t: 0 };
+function toastBonus(text) { bToast = { text, t: 1.4 }; }
+const paperAt = x => alivePapers().find(p => x >= p.x && x <= p.x + p.w);
+function bstep(dt) {
+  if (Bn.state !== "play") return;
+  const S = Bn, W = S.W; S.time += dt; S.inv = Math.max(0, S.inv - dt); S.banner = Math.max(0, S.banner - dt); bToast.t = Math.max(0, bToast.t - dt);
+  S.papers.forEach(p => p.flash = Math.max(0, p.flash - dt));
+  const dir = (held.has("right") ? 1 : 0) - (held.has("left") ? 1 : 0);
+  if (!S.drag) S.ship.x = Math.min(W - 18, Math.max(18, S.ship.x + dir * Math.max(280, W * .55) * dt));
+  S.fireCd -= dt;
+  S.tripleT = Math.max(0, S.tripleT - dt);
+  if ((held.has("a") || S.drag || S.tripleT > 0) && S.fireCd <= 0) {
+    S.fireCd = .16; S.pshots.push({ x: S.ship.x, y: S.ship.y - 14, vx: 0 }); SFX.pew();
+    if (S.tripleT > 0) { S.pshots.push({ x: S.ship.x - 10, y: S.ship.y - 8, vx: -170, side: 1 }); S.pshots.push({ x: S.ship.x + 10, y: S.ship.y - 8, vx: 170, side: 1 }); }
+  }
+  S.pshots.forEach(p => { p.y -= 600 * dt; p.x += (p.vx || 0) * dt; }); S.pshots = S.pshots.filter(p => p.y > -10 && !p.dead);
+  const targets = alivePapers(), pick = () => targets[Math.random() * targets.length | 0];
+  const f = speedUp(), fireRate = (.03 + S.wave * .025) * f, shotV = (120 + S.wave * 18) * Math.min(f, 2.2);
+  for (const e of S.enemies) {
+    e.enter = Math.min(1, e.enter + dt * .9);
+    const hx = e.bx + Math.sin(S.time * (1 + S.wave * .15) * f + e.ph) * (26 + S.wave * 6), hy = e.by + Math.cos(S.time * 1.3 + e.ph) * 6;
+    if (e.dive) {
+      // dive at a paper: steer toward its centre and keep falling
+      e.x += (e.dive.tx - e.x) * Math.min(1, dt * 1.8); e.y += (90 + S.wave * 22) * Math.min(f, 2.2) * dt;
+      if (e.y >= S.py) { const p = paperAt(e.x); if (p) { damagePaper(p, e.x, S.py); e.dead = true; S.killed++; } else if (e.y > S.H + 20) { e.y = -30; e.dive = null; } }
+    } else { e.x += (hx - e.x) * Math.min(1, dt * 4 * e.enter); e.y += (hy - e.y) * Math.min(1, dt * 3 * e.enter); }
+    if (!e.dive && e.enter > .9 && targets.length && Math.random() < dt * (.012 + S.wave * .012) * f) { const p = pick(); e.dive = { tx: p.x + p.w / 2 }; }
+    if (e.enter > .9 && targets.length && Math.random() < dt * fireRate) {
+      // most of the static is aimed at the papers, some at you
+      const tx = Math.random() < .7 ? (p => p.x + Math.random() * p.w)(pick()) : S.ship.x, ty = S.py + 10, d = Math.max(1, ty - e.y);
+      S.eshots.push({ x: e.x, y: e.y + 10, vx: (tx - e.x) * shotV / d, vy: shotV });
+    }
+  }
+  const b = S.boss;
+  if (b) {
+    b.y += (b.ty - b.y) * Math.min(1, dt * 1.5); b.x = W / 2 + Math.sin(S.time * (b.hp < b.max / 2 ? 1.1 : .7) * Math.min(f, 2)) * (W / 2 - 90); b.flash = Math.max(0, b.flash - dt);
+    b.cd -= dt;
+    if (b.cd <= 0 && b.y > b.ty - 10 && targets.length) {
+      const n = b.hp < b.max / 2 ? 7 : 5; b.cd = (b.hp < b.max / 2 ? 1.1 : 1.5) / Math.min(f, 2.2);
+      for (let k = 0; k < n; k++) { const a = Math.PI / 2 + (k - (n - 1) / 2) * .2; S.eshots.push({ x: b.x, y: b.y + 30, vx: Math.cos(a) * 170 * Math.min(f, 2), vy: Math.sin(a) * 170 * Math.min(f, 2) }); }
+      const p = pick(), tx = p.x + p.w / 2, d = Math.max(1, S.py - b.y); S.eshots.push({ x: b.x, y: b.y + 30, vx: (tx - b.x) * 220 / d, vy: 220 });
+    }
+  }
+  S.eshots.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; });
+  // static that reaches the paper row damages the paper underneath
+  for (const p of S.eshots) if (!p.dead && p.y >= S.py) { const paper = paperAt(p.x); if (paper) { damagePaper(paper, p.x, S.py); p.dead = true; } }
+  S.eshots = S.eshots.filter(p => p.y < S.H + 10 && p.x > -10 && p.x < W + 10 && !p.dead);
+  // your shots vs the swarm
+  for (const p of S.pshots) {
+    for (const e of S.enemies) if (!e.dead && Math.abs(p.x - e.x) < 15 && Math.abs(p.y - e.y) < 14) {
+      p.dead = true; e.hp--; burst(e.x, e.y, e.tough ? "#ff3d7f" : "#f4f0ff", 5);
+      if (e.hp <= 0) { e.dead = true; S.killed++; S.score += (e.dive ? 250 : 100) * S.wave * S.loop; burst(e.x, e.y, "#ffe23e", 14); SFX.hit(); }
+      break;
+    }
+    if (b && !p.dead && Math.abs(p.x - b.x) < 56 && Math.abs(p.y - b.y) < 32) {
+      p.dead = true; b.hp--; b.flash = .08; S.score += 50; burst(p.x, p.y, "#ff3d7f", 4);
+      if (b.hp <= 0) {
+        const safe = alivePapers().length; S.score += (5000 + safe * 1000 + S.lives * 500) * S.loop;
+        for (let k = 0; k < 6; k++) burst(b.x + (Math.random() - .5) * 90, b.y + (Math.random() - .5) * 50, "#ffe23e", 20);
+        S.boss = null; S.eshots = []; SFX.win(); toastBonus(`LOOP ${S.loop} CLEARED`);
+        setTimeout(() => { if (inBonus && Bn.state === "play" && !Bn.boss) nextLoop(); }, 1800); return;
+      }
+    }
+  }
+  S.enemies = S.enemies.filter(e => !e.dead);
+  // the swarm vs your ship
+  if (S.inv <= 0) {
+    const hit = S.eshots.find(p => Math.abs(p.x - S.ship.x) < 11 && Math.abs(p.y - S.ship.y) < 11) || S.enemies.find(e => Math.abs(e.x - S.ship.x) < 18 && Math.abs(e.y - S.ship.y) < 16);
+    if (hit) {
+      hit.dead = true; if (hit.hp !== undefined) { hit.hp = 0; S.killed++; }
+      S.lives--; S.inv = 2; burst(S.ship.x, S.ship.y, "#3ee8ff", 24); SFX.miss();
+      if (S.lives <= 0) { finishBonus(false); return; }
+    }
+  }
+  if (!alivePapers().length) { finishBonus(false); return; }
+  S.sparks.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.life -= dt; }); S.sparks = S.sparks.filter(p => p.life > 0);
+  if (!S.enemies.length && !S.boss && S.wave < 5) { S.score += alivePapers().length * 200 * S.loop; nextWave(); }
+}
+function burst(x, y, col, n) { for (let k = 0; k < n; k++) Bn.sparks.push({ x, y, vx: (Math.random() - .5) * 220, vy: (Math.random() - .5) * 220, life: .25 + Math.random() * .3, col }); }
+function finishBonus(won) {
+  score += Bn.score; updateTop(); save(); Bn.state = "ending";
+  setTrack(won ? "calm" : "bonus");
+  setTimeout(() => showBonus(won ? "won" : "over"), won ? 900 : 600);
+}
+function noiseSprite(c, map, x, y, px, tint) {
+  for (let r = 0; r < 8; r++) for (let q = 0; q < 8; q++) if (map[r][q] === "#") {
+    const v = Math.random(); c.fillStyle = v > .7 ? "#f4f0ff" : v > .4 ? tint : v > .15 ? "#8e86c0" : "#3a2f66";
+    c.fillRect(Math.round(x + (q - 4) * px), Math.round(y + (r - 4) * px), px, px);
+  }
+}
+function drawPapers(c) {
+  const S = Bn, h = S.ph, imgH = h - 14;
+  for (const p of S.papers) {
+    const x = Math.round(p.x), y = Math.round(S.py), w = Math.round(p.w), im = S.imgs[p.i];
+    c.fillStyle = p.hp <= 0 ? "#1a1430" : "#140e33"; c.fillRect(x, y, w, h);
+    if (p.hp > 0) {
+      c.fillStyle = "#fff"; c.fillRect(x + 2, y + 2, w - 4, imgH - 2);
+      if (im) { const s = Math.max((w - 4) / im.naturalWidth, (imgH - 2) / im.naturalHeight), dw = im.naturalWidth * s, dh = im.naturalHeight * s;
+        c.save(); c.beginPath(); c.rect(x + 2, y + 2, w - 4, imgH - 2); c.clip(); c.drawImage(im, x + 2 + (w - 4 - dw) / 2, y + 2 + (imgH - 2 - dh) / 2, dw, dh); c.restore(); }
+      // damage shows as static creeping over the figure
+      const dmg = PAPER_HP - p.hp;
+      for (let k = 0; k < dmg * 40; k++) { const v = Math.random(); c.fillStyle = v > .5 ? "#3a2f66" : v > .25 ? "#ff3d7f" : "#8e86c0"; c.fillRect(x + 2 + Math.random() * (w - 6), y + 2 + Math.random() * (imgH - 4), 3, 3); }
+      if (p.flash) { c.fillStyle = `rgba(255,61,127,${p.flash * 2})`; c.fillRect(x, y, w, h); }
+    } else {
+      for (let k = 0; k < 120; k++) { const v = Math.random(); c.fillStyle = v > .6 ? "#3a2f66" : v > .3 ? "#2a2148" : "#8e86c0"; c.fillRect(x + 2 + Math.random() * (w - 6), y + 2 + Math.random() * (imgH - 4), 3, 3); }
+    }
+    c.strokeStyle = p.hp <= 0 ? "#3a2f66" : p.hp === PAPER_HP ? "#3ee8ff" : "#ff8a1f"; c.lineWidth = 2; c.strokeRect(x + 1, y + 1, w - 2, h - 2);
+    c.font = "7px 'Press Start 2P', monospace"; c.textAlign = "left"; c.fillStyle = p.hp <= 0 ? "#5d5480" : "#f4f0ff";
+    c.fillText(p.hp <= 0 ? "LOST" : SITE.pubs[p.i].short.toUpperCase().slice(0, Math.max(4, Math.floor((w - 30) / 7))), x + 5, y + h - 4);
+    for (let k = 0; k < PAPER_HP; k++) { c.fillStyle = k < p.hp ? "#ffe23e" : "#3a2f66"; c.fillRect(x + w - 8 - k * 7, y + h - 10, 5, 5); }
+  }
+}
+function bdraw() {
+  if (!inBonus) return;
+  const c = bctx, S = Bn; c.clearRect(0, 0, S.W, S.H);
+  drawPapers(c);
+  S.enemies.forEach(e => noiseSprite(c, e.tough ? BLOB2 : BLOB, e.x, e.y, 3, e.tough ? "#ff3d7f" : "#3ee8ff"));
+  const b = S.boss;
+  if (b) {
+    for (let r = -9; r <= 9; r++) for (let q = -16; q <= 16; q++) {
+      if ((q / 16) ** 2 + (r / 9) ** 2 > 1 + Math.sin(S.time * 6 + q * .7 + r) * .08) continue;
+      const v = Math.random(); c.fillStyle = b.flash ? "#ffffff" : v > .75 ? "#f4f0ff" : v > .45 ? "#ff3d7f" : v > .2 ? "#8e86c0" : "#3a2f66";
+      c.fillRect(Math.round(b.x + q * 3.5), Math.round(b.y + r * 3.5), 4, 4);
+    }
+    c.fillStyle = "#0b0722"; c.fillRect(b.x - 14, b.y - 4, 8, 8); c.fillRect(b.x + 6, b.y - 4, 8, 8);
+    c.fillStyle = "#ffe23e"; c.fillRect(b.x - 12, b.y - 2, 4, 4); c.fillRect(b.x + 8, b.y - 2, 4, 4);
+    const bw = Math.min(260, S.W - 80); c.fillStyle = "#3a2f66"; c.fillRect(S.W / 2 - bw / 2, 30, bw, 6); c.fillStyle = "#ff3d7f"; c.fillRect(S.W / 2 - bw / 2, 30, bw * b.hp / b.max, 6);
+    c.font = `${S.W < 500 ? 7 : 8}px 'Press Start 2P', monospace`; c.textAlign = "center"; c.fillStyle = "#f4f0ff"; c.fillText("MODE COLLAPSE", S.W / 2, 24);
+  }
+  S.pshots.forEach(p => { c.fillStyle = p.side ? "#ff3d7f" : "#ffe23e"; c.fillRect(Math.round(p.x) - 1, Math.round(p.y), p.side ? 4 : 3, 10); });
+  S.eshots.forEach(p => { c.fillStyle = Math.random() > .5 ? "#ff3d7f" : "#f4f0ff"; c.fillRect(Math.round(p.x) - 2, Math.round(p.y) - 2, 5, 5); });
+  S.sparks.forEach(p => { c.fillStyle = p.col; c.fillRect(p.x | 0, p.y | 0, 3, 3); });
+  if (S.lives > 0 && !(S.inv > 0 && Math.floor(S.inv * 10) % 2)) drawShip(c, S.ship.x, S.ship.y, S.state === "play");
+  // HUD
+  const small = S.W < 500;
+  c.font = `${small ? 7 : 9}px 'Press Start 2P', monospace`; c.textAlign = "left"; c.fillStyle = "#3ee8ff"; c.fillText(small ? `L${S.loop} W${Math.max(1, S.wave)}/5` : `LOOP ${S.loop}  WAVE ${Math.max(1, S.wave)}/5`, 12, b ? 50 : 16);
+  c.fillStyle = "#ffe23e"; c.fillText(small ? `SAFE ${alivePapers().length}/6` : `PAPERS SAFE ${alivePapers().length}/6`, 12, S.H - 8);
+  c.textAlign = "right"; c.fillStyle = "#f4f0ff"; c.fillText(pad6(S.score), S.W - 12, b ? 50 : 16);
+  for (let k = 0; k < Math.min(S.lives, 9); k++) drawLife(c, S.W - 18 - k * 18, S.H - 13);
+  c.textAlign = "left"; c.font = `${small ? 6 : 8}px 'Press Start 2P', monospace`; c.fillStyle = S.tripleT > 0 ? "#ffe23e" : "#8e86c0";
+  const tx = small ? S.W * .5 - 50 : Math.max(200, S.W * .32); c.fillText("TRIPLE", tx, S.H - 8);
+  for (let k = 0; k < TRIPLES; k++) { c.fillStyle = k < S.triples ? "#ffe23e" : "#3a2f66"; for (let j = -1; j <= 1; j++) c.fillRect(tx + 58 + k * 16 + j * 4, S.H - 15, 2, 7); }
+  if (S.tripleT > 0) { c.fillStyle = "#3a2f66"; c.fillRect(tx + 110, S.H - 13, 60, 4); c.fillStyle = "#ffe23e"; c.fillRect(tx + 110, S.H - 13, 60 * S.tripleT / TRIPLE_SECS, 4); }
+  if (S.tripleT > 0 && S.lives > 0) { c.fillStyle = "#ffe23e"; c.fillRect(S.ship.x - 18, S.ship.y + 8, 4, 4); c.fillRect(S.ship.x + 14, S.ship.y + 8, 4, 4); }
+  if (S.state === "play" && (S.banner > 0 || bToast.t > 0)) {
+    c.textAlign = "center"; c.font = `${small ? 11 : 14}px 'Press Start 2P', monospace`; c.fillStyle = bToast.t > 0 ? "#ff3d7f" : "#ffe23e";
+    c.fillText(bToast.t > 0 ? bToast.text : S.wave === 5 ? "BOSS: MODE COLLAPSE" : `WAVE ${S.wave}`, S.W / 2, S.py * .55);
+    if (S.wave === 1 && Bn.loop === 1 && !bToast.t) {
+      c.font = `${small ? 7 : 8}px 'Press Start 2P', monospace`; c.fillStyle = "#8e86c0";
+      const lines = matchMedia("(pointer: coarse)").matches ? ["DRAG ANYWHERE TO FLY", "THE SHIP FIRES WHILE YOU DRAG", "B BUTTON: TRIPLE SHOT (3 PER GAME)"]
+        : small ? ["← → MOVE  SPACE FIRE", "X TRIPLE SHOT  ESC PAUSE"] : ["← → MOVE   SPACE FIRE   X TRIPLE SHOT (3 PER GAME)   ESC PAUSE"];
+      lines.forEach((ln, k) => c.fillText(ln, S.W / 2, S.py * .55 + 24 + k * 16));
+    }
+  }
+}
+function drawLife(c, x, y) { c.fillStyle = "#3ee8ff"; c.fillRect(x - 1, y - 4, 2, 2); c.fillRect(x - 3, y - 2, 6, 2); c.fillRect(x - 5, y, 10, 3); }
+bcv.addEventListener("pointerdown", e => { if (Bn.state !== "play") return; Bn.drag = true; bcv.setPointerCapture(e.pointerId); bsteer(e); });
+bcv.addEventListener("pointermove", e => { if (Bn.drag) bsteer(e); });
+["pointerup", "pointercancel"].forEach(ev => bcv.addEventListener(ev, () => { Bn.drag = false; }));
+function bsteer(e) { const r = bcv.getBoundingClientRect(); Bn.ship.x = Math.min(Bn.W - 18, Math.max(18, e.clientX - r.left)); }
+
+
+/* ---------------- boot ---------------- */
+let last = performance.now();
+function frame(t) {
+  const dt = Math.min(.05, (t - last) / 1000); last = t;
+  if (inBonus) { bstep(dt); bdraw(); } else { step(dt, t); draw(); } // only one ship on screen at a time
+  drawStars(dt); requestAnimationFrame(frame);
+}
+function setTop() { $("#screen").style.setProperty("--top", $(".topline").offsetHeight + "px"); }
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { setTop(); sizeStars(); layout(); if (inBonus) sizeBonus(); }, 120); });
+if (matchMedia("(pointer: coarse)").matches) { $("#hint").innerHTML = "DRAG TO FLY AND FIRE, OR TAP A PAPER"; document.querySelector(".hint2").textContent = "TAP PRESS START TO PLAY PAPER DEFENDER"; }
+if (matchMedia("(max-width: 760px)").matches) $(".modebar").appendChild($(".mode-toggle"));
+new MutationObserver(() => { setTop(); if (inBonus) requestAnimationFrame(sizeBonus); }).observe($("#screen"), { attributes: true, attributeFilter: ["class"] });
+// a second tap on the B button during play is the triple shot; make sure double-tap never zooms the page
+document.addEventListener("dblclick", e => e.preventDefault(), { passive: false });
+setTop(); sizeStars(); buildTargets(); updateTop();
+allDone = [...opened].filter(i => i < NP).length === NP;
+$("#startBtn").focus({ preventScroll: true });
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

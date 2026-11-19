@@ -80,6 +80,14 @@ a:hover { color: var(--muted); }
 }
 
 .nav-links { display: flex; gap: 1.5rem; margin: 0; padding: 0; list-style: none; }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+/* Arcade mode toggle: pinned to the same spot as on the arcade page (top-right corner of the 1180px cabinet) */
+.mode-toggle { position: absolute; z-index: 60; top: 31px; right: calc((100% - min(1180px, 100%)) / 2 + 47px); display: inline-flex; align-items: center; gap: .55rem; padding: 7px 10px; border: 1px solid var(--ink); border-radius: 6px; background: var(--paper, #f6f6ef); font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; line-height: 1; }
+.mode-toggle .state { color: var(--muted); }
+.mode-toggle .track { position: relative; width: 34px; height: 18px; border: 1px solid var(--ink); border-radius: 999px; background: transparent; transition: background .15s ease; }
+.mode-toggle .track::after { position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--ink); content: ""; transition: left .15s ease; }
+.mode-toggle:hover .track, .mode-toggle:focus-visible .track { background: var(--acid); }
+.mode-toggle:hover .track::after, .mode-toggle:focus-visible .track::after { left: 18px; }
 .nav-links a { position: relative; font-family: var(--mono); font-size: .7rem; text-decoration: none; text-transform: uppercase; letter-spacing: .08em; }
 .nav-links a::after { position: absolute; right: 0; bottom: -.35rem; left: 0; height: 2px; content: ""; background: var(--acid); transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
 .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
@@ -237,6 +245,7 @@ a:hover { color: var(--muted); }
 .site-footer p { margin: 0; color: var(--muted); font-family: var(--mono); font-size: .65rem; letter-spacing: .02em; }
 
 @media (max-width: 700px) {
+  .mode-toggle { top: 3px; right: 8px; padding: 5px 8px; font-size: .6rem; }
   .container { padding: 0 1.25rem; }
   .navbar .container { align-items: flex-start; }
   .nav-links { gap: .85rem; padding-top: .45rem; }

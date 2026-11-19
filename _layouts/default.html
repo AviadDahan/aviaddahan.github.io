@@ -61,9 +61,7 @@
     <nav class="navbar">
       <div class="container">
         <a class="site-title" href="{{ '/' | relative_url }}"><span class="site-mark">AD</span>{{ site.title }}</a>
-        <ul class="nav-links">
-          <li><a href="{{ '/' | relative_url }}" {% if page.permalink == '/' %}class="active"{% endif %}>Home</a></li>
-        </ul>
+        <a class="mode-toggle" href="{{ '/arcade/' | relative_url }}" role="switch" aria-checked="false" aria-label="Arcade mode is off. Switch to the arcade version of the site.">Arcade mode <span class="track" aria-hidden="true"></span><span class="state" aria-hidden="true">Off</span></a>
       </div>
     </nav>
   </header>
