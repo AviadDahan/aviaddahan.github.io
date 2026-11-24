@@ -25,7 +25,7 @@ My research spans personalized audiovisual generation, temporally coherent video
     <img src="/assets/img/publications/sepgen.png" alt="SepGen: generation and separation of individual audio stems alongside video" loading="lazy" decoding="async" width="1200" height="630">
   </a>
   <div class="pub-content">
-    <span class="pub-title">SepGen: Multi-Stem Audio-Video Separation and Generation in a Single Model</span>
+    <a class="pub-title" href="https://sepgen.github.io/" target="_blank" rel="noopener noreferrer">SepGen: Multi-Stem Audio-Video Separation and Generation in a Single Model</a>
     <span class="pub-authors"><strong>Aviad Dahan</strong>, Rajaei Khatib, Yonatan Bitton, Idan Szpektor, Lior Wolf, Raja Giryes</span>
     <span class="pub-venue">arXiv preprint, 2026</span>
     <div class="pub-links">
@@ -44,7 +44,7 @@ My research spans personalized audiovisual generation, temporally coherent video
     <img src="/assets/img/publications/idlora.png" alt="ID-LoRA">
   </div>
   <div class="pub-content">
-    <span class="pub-title">ID-LoRA: Identity-Driven Audio-Video Personalization with In-Context LoRA</span>
+    <a class="pub-title" href="https://id-lora.github.io/" target="_blank" rel="noopener noreferrer">ID-LoRA: Identity-Driven Audio-Video Personalization with In-Context LoRA</a>
     <span class="pub-authors"><strong>Aviad Dahan</strong>*, Moran Yanuka*, Noa Kraicer, Lior Wolf, Raja Giryes</span>
     <span class="pub-venue">European Conference on Computer Vision (ECCV), 2026</span>
     <div class="pub-links">
@@ -60,7 +60,7 @@ My research spans personalized audiovisual generation, temporally coherent video
     <img src="/assets/img/publications/mff.png" alt="Consistent Zero-Shot Video Editing with Multimodal Feature Flow">
   </div>
   <div class="pub-content">
-    <span class="pub-title">Consistent Zero-Shot Video Editing with Multimodal Feature Flow</span>
+    <a class="pub-title" href="https://ieeexplore.ieee.org/document/11509357" target="_blank" rel="noopener noreferrer">Consistent Zero-Shot Video Editing with Multimodal Feature Flow</a>
     <span class="pub-authors"><strong>Aviad Dahan</strong>, Eyal Gomel, Lior Wolf, Raja Giryes</span>
     <span class="pub-venue">IEEE Open Journal of Signal Processing, 2026 · Oral at ICIP 2026</span>
     <div class="pub-links">
@@ -76,7 +76,7 @@ My research spans personalized audiovisual generation, temporally coherent video
     <img src="/assets/img/publications/liteattention.png" alt="LiteAttention">
   </div>
   <div class="pub-content">
-    <span class="pub-title">LiteAttention: A Temporal Sparse Attention for Diffusion Transformers</span>
+    <a class="pub-title" href="https://moonmath-ai.github.io/LiteAttention/" target="_blank" rel="noopener noreferrer">LiteAttention: A Temporal Sparse Attention for Diffusion Transformers</a>
     <span class="pub-authors">Dor Shmilovich, Tony Wu, <strong>Aviad Dahan</strong>, Yuval Domb</span>
     <span class="pub-venue">arXiv preprint, 2025</span>
     <div class="pub-links">
@@ -92,7 +92,7 @@ My research spans personalized audiovisual generation, temporally coherent video
     <img src="/assets/img/publications/vps.png" alt="Video Polyp Segmentation">
   </div>
   <div class="pub-content">
-    <span class="pub-title">Video Polyp Segmentation using Implicit Networks</span>
+    <a class="pub-title" href="https://proceedings.mlr.press/v250/dahan24c.html" target="_blank" rel="noopener noreferrer">Video Polyp Segmentation using Implicit Networks</a>
     <span class="pub-authors"><strong>Aviad Dahan</strong>, Tal Shaharabany, Raja Giryes, Lior Wolf</span>
     <span class="pub-venue">Medical Imaging with Deep Learning (MIDL), 2024</span>
     <div class="pub-links">
@@ -107,7 +107,7 @@ My research spans personalized audiovisual generation, temporally coherent video
     <img src="/assets/img/publications/autosam.png" alt="AutoSAM">
   </div>
   <div class="pub-content">
-    <span class="pub-title">AutoSAM: Adapting SAM to Medical Images by Overloading the Prompt Encoder</span>
+    <a class="pub-title" href="https://arxiv.org/abs/2306.06370" target="_blank" rel="noopener noreferrer">AutoSAM: Adapting SAM to Medical Images by Overloading the Prompt Encoder</a>
     <span class="pub-authors">Tal Shaharabany, <strong>Aviad Dahan</strong>, Raja Giryes, Lior Wolf</span>
     <span class="pub-venue">British Machine Vision Conference (BMVC), 2023</span>
     <div class="pub-links">

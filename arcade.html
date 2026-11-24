@@ -129,6 +129,8 @@ title: Arcade
   .shot img { display: block; width: 100%; height: auto; }
   .kicker { font: 9px "Press Start 2P", monospace; color: var(--pink); margin: 0 0 12px; }
   .stage h2 { margin: 0 0 14px; font-size: clamp(20px, 2.2vw, 28px); line-height: 1.2; font-weight: 400; }
+  .stage h2 a.ttl { color: inherit; text-decoration: none; }
+  .stage h2 a.ttl:hover, .stage h2 a.ttl:focus-visible { color: var(--yellow); text-decoration: underline; text-underline-offset: 5px; }
   .who { margin: 0 0 6px; font-size: 18px; color: var(--dim); line-height: 1.4; }
   .who b { color: var(--paper); font-weight: 400; text-decoration: underline; text-decoration-color: var(--pink); text-underline-offset: 4px; }
   .venue { margin: 0 0 20px; font-size: 18px; color: var(--yellow); }
@@ -911,7 +913,7 @@ function openPaper(i) {
   const p = SITE.pubs[i];
   openPanel(`<div class="stage"><div class="shot" id="shot"></div><div>
       <p class="kicker">PAPER ${i + 1} OF ${SITE.pubs.length}</p>
-      <h2>${esc(p.title)}</h2><p class="who">${authorsHTML(p.authors)}</p><p class="venue">${esc(p.venue)}</p>
+      <h2><a class="ttl" href="${esc(p.links[0][1])}" target="_blank" rel="noopener noreferrer">${esc(p.title)}</a></h2><p class="who">${authorsHTML(p.authors)}</p><p class="venue">${esc(p.venue)}</p>
       <div class="links">${p.links.map(([l, u]) => ext(l.toUpperCase(), u)).join("")}</div></div></div>${navHTML(i)}`, i, ".links a");
   const fig = new Image(); fig.src = p.img; fig.alt = `Figure from ${p.short}`; fig.className = "sharp"; $("#shot").appendChild(fig);
 }
